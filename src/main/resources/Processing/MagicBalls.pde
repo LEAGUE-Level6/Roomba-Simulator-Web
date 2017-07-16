@@ -1,6 +1,6 @@
 
 void setup(){
- size(100, 100);
+ size(200, 200);
  background(0);
  frameRate(sqrt(sq(height) + sq(width))/4);
 }
