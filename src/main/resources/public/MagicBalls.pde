@@ -2,7 +2,7 @@
 void setup(){
  size(500, 500);
  background(0);
- frameRate(sqrt(sq(height) + sq(width))/4);
+ frameRate(sqrt(sq(height) + sq(width))/16);
 }
  
 void draw(){
