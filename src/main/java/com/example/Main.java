@@ -53,9 +53,9 @@ public class Main {
     return "index";
   }
   
-  @RequestMapping("/turretgame")
-  String turretgame() {
-	    return "turretgame";
+  @RequestMapping("/testjs")
+  String testjs() {
+	    return "testjs";
   }
   
 
