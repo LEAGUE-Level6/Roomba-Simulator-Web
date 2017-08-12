@@ -4,6 +4,7 @@
     <title>Java Getting Started on Heroku</title>
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/codemirror/lib/codemirror.css}" />
 </head>
 
 <body>
@@ -46,5 +47,9 @@
     <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/angular/angular.min.js}"></script>
+    <script th:src="@{/webjars/angular-ui-codemirror/ui-codemirror.min.js}"></script>
+    <script th:src="@{/webjars/codemirror/lib/codemirror.js}"></script>
+    <script th:src="@{/webjars/codemirror/mode/clike/clike.js}"></script>
     <script src="/javascripts/roomba-simulator.js"></script>
+    
 </body>

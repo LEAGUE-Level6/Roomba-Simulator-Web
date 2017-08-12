@@ -2,10 +2,15 @@
 <html xmlns:th = "http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}" >
 
 <body ng-app ="roombaSimApp">
-<div ng-controller ="roombaSimController" >
-<div ng-click = "sayHello()"> 
-hello world
-</div>
-</div>
+	<div ng-controller ="roombaSimController" >
+		<div ng-click = "sayHello()"> 
+			hello world
+		</div>
+		<form>
+			<textarea ui-codemirror = "editorOptions" ng-model = "code">
+			</textarea>
+		</form>
+	</div>
 </body>
+
 </html>
