@@ -55,11 +55,5 @@ $scope.code =
 '		closeConnection(); \n ' +
 '	} \n ' +
 '} \n ' +
-'\n ' +
-
-
-
- 
-
-;
+'\n ' 
 });
