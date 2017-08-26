@@ -66,6 +66,7 @@ $scope.runSimulation = function() {
 			alert("failure in running simulation");
 			console.log(response.data);
 			console.log(response.status);
+			console.log(JSON.stringify(response));
 		}
 	);
 };
