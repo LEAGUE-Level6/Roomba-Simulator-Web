@@ -23,8 +23,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -52,10 +55,16 @@ public class Main {
   String index() {
     return "index";
   }
-  
+
   @RequestMapping("/testjs")
   String testjs() {
 	    return "testjs";
+  }
+
+  @RequestMapping(path = "/runsim", method = RequestMethod.POST)
+  ResponseEntity<String> runSimulation(@RequestBody String code) {
+    System.out.println(code);
+    return ResponseEntity.ok("{'code':'" + code + "'}");
   }
   
 

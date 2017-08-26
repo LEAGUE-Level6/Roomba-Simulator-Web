@@ -1,5 +1,5 @@
 var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
-roombaSim.controller('roombaSimController', function($scope)
+roombaSim.controller('roombaSimController', function($scope, $http)
 {
 $scope.sayHello = function() {window.alert("Hello") };
 $scope.editorOptions = {
@@ -55,5 +55,20 @@ $scope.code =
 '		closeConnection(); \n ' +
 '	} \n ' +
 '} \n ' +
-'\n ' 
+'\n ';
+$scope.runSimulation = function() {
+	$http.post("/runsim", $scope.code).then(
+		function successCallback(response) {
+			alert(response.data);
+		},
+
+		function errorCallback(response) {
+			alert("failure in running simulation");
+			console.log(response.data);
+			console.log(response.status);
+			console.log(JSON.stringify(response));
+		}
+	);
+};
 });
+

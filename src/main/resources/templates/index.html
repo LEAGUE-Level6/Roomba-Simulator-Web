@@ -3,13 +3,15 @@
 
 <body ng-app ="roombaSimApp">
 	<div ng-controller ="roombaSimController" >
-		<div ng-click = "sayHello()"> 
-			hello world
-		</div>
+
 		<form>
 			<textarea ui-codemirror = "editorOptions" ng-model = "code">
 			</textarea>
 		</form>
+
+		<button ng-click = "runSimulation()">
+			Run simulation...
+		</button>
 	</div>
 </body>
 
