@@ -64,7 +64,7 @@ public class Main {
   @RequestMapping(path = "/runsim", method = RequestMethod.POST)
   ResponseEntity<String> runSimulation(@RequestBody String code) {
     System.out.println(code);
-    return ResponseEntity.ok(code);
+    return ResponseEntity.ok("{'code':'" + code + "'}");
   }
   
 
