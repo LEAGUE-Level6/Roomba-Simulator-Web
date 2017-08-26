@@ -4,9 +4,9 @@
       <title>Oh my goodness, it worked</title>
       <script type="text/javascript" src="../processing.min.js"></script>
   	  <script type="text/javascript">
-  	  	function toggleBG(){
+  	  	function move(){
   	  		var processingInstance = Processing.getInstanceById('sketch');
-  	  		processingInstance.background(255);
+  	  		processingInstance.move(x + 5, y + 5, 135);
   	  		
   	  	}
   	  </script>
@@ -15,7 +15,7 @@
       <h1>Processing.js Test</h1>
       <p>This is my first Processing.js web-based sketch:</p>
      	<canvas id="sketch" data-processing-sources="../DisplayRoomba.pde"></canvas>
-        <button onclick="toggleBG()"> Background </button>
+        <button onclick="move()"> move </button>
  </body>
  </html>
 

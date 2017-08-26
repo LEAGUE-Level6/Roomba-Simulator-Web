@@ -15,7 +15,7 @@ void draw() {
   pushMatrix();
   scale(scaleFactor);
   translate(x + (definition * width)/2 - width/2, y + (definition * height)/2 - height/2);
-  rotate(a);
+  rotate(radians(a));
   fill(0);
   stroke(0);
   strokeWeight(2);
@@ -44,7 +44,12 @@ void draw() {
   
   popMatrix();
   
-  
+}
+
+void move(float x, float y, float angleInDegrees) {
+this.x = x;
+this.y = y;
+a = angleInDegrees;
 }
 
 
