@@ -3,11 +3,19 @@
   <head>
       <title>Oh my goodness, it worked</title>
       <script type="text/javascript" src="../processing.min.js"></script>
+  	  <script type="text/javascript">
+  	  	function toggleBG(){
+  	  		var processingInstance = Processing.getInstanceById('sketch');
+  	  		processingInstance.background(255);
+  	  		
+  	  	}
+  	  </script>
   </head>
   <body>
       <h1>Processing.js Test</h1>
       <p>This is my first Processing.js web-based sketch:</p>
-     <canvas data-processing-sources="../MagicBalls.pde"></canvas>
+     	<canvas id="sketch" data-processing-sources="../DisplayRoomba.pde"></canvas>
+        <button onclick="toggleBG()"> Background </button>
  </body>
  </html>
 
