@@ -52,5 +52,12 @@ y = y1;
 a = angleInDegrees;
 }
 
+float getX() {
+ return x;
+}
+
+float getY() {
+ return y;
+}
 
 
