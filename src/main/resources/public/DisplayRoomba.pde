@@ -46,9 +46,9 @@ void draw() {
   
 }
 
-void move(float x, float y, float angleInDegrees) {
-this.x = x;
-this.y = y;
+void move(float x1, float y1, float angleInDegrees) {
+x = x1;
+y = y1;
 a = angleInDegrees;
 }
 
