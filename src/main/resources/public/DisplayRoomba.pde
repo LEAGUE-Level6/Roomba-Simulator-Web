@@ -9,8 +9,10 @@ private int GRID_SIZE = 4;
 private float definition; 
 private float scaleFactor;
 private float angularVelocity;
-private PVector linearVelocity;
-private float a;
+private PVector linearVelocity = new PVector(0, 0);
+float preSpeed;
+float preAngle;
+private float a = 0;
 
 void setup() {
   size(900, 900);
@@ -18,7 +20,6 @@ void setup() {
   definition = 200/radius + 1;
   radius = definition * radius;
   scaleFactor = 1/definition;
-  
   driveDirect(400, 500);
 }
 
@@ -29,9 +30,7 @@ void draw() {
 }
 
 public void update() {
-  a += angularVelocity;
-  x += linearVelocity.x;
-  y += linearVelocity.y;
+  drive(preSpeed/4, preAngle/4);
 }
 
 public float getRadius() {
@@ -39,11 +38,8 @@ public float getRadius() {
 }
 
 public void driveDirect(float left, float right) {
-  if (tick == 1) {
-    float speed = (left + right) / ((width + height)/2 / (GRID_SIZE * 2.0f));
-    float ang = (left - right) / ((width + height)/2 / (float) (GRID_SIZE));
-    drive(speed/4, ang/4);
-  }
+    preSpeed = (left + right) / ((width + height)/2 / (GRID_SIZE * 2.0f));
+    preAngle = (left - right) / ((width + height)/2 / (float) (GRID_SIZE)); 
 }
 
 private void drive(float speed, float angle) {
@@ -52,6 +48,10 @@ private void drive(float speed, float angle) {
 
   setLinearVelocity(new PVector(x1, y1));
   setAngularVelocity(angle);
+  
+  a += angularVelocity;
+  x += linearVelocity.x;
+  y += linearVelocity.y;
 }
 
 private int drawRedDot() {
@@ -63,12 +63,6 @@ private int drawRedDot() {
 
 
 public void display() {
-  tick++;
-  if (tick > 10) {
-    setLinearVelocity(new PVector(0, 0));
-    setAngularVelocity(0);
-    tick = 0;
-  }
   pushMatrix();
   scale(scaleFactor);
   translate(x + (definition * width)/2 - width/2, y + (definition * height)/2 - height/2);
@@ -115,4 +109,5 @@ public void setAngularVelocity(float newVelocity) {
 
 public void setLinearVelocity(PVector newVelocity) {
   linearVelocity = new PVector(newVelocity.x * 1.6, newVelocity.y * -1.6);
+  println("hi");
 }
