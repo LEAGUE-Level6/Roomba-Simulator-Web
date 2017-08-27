@@ -3,14 +3,14 @@ private int light = 50;
 private int incRed = -4;
 private float x = 450;
 private float y = 450;
-private float radius = 25;
+private float radius = 50;
 private boolean bump;
 private int GRID_SIZE = 4;
 private float definition; 
 private float scaleFactor;
 private float angularVelocity;
 private PVector linearVelocity;
-float a;
+private float a;
 
 void setup() {
   size(900, 900);
@@ -18,12 +18,12 @@ void setup() {
   definition = 200/radius + 1;
   radius = definition * radius;
   scaleFactor = 1/definition;
-  driveDirect(500, 300);
 }
 
 void draw() {
   background(255);
   display();
+  driveDirect(400, 500);
   update();
 }
 
