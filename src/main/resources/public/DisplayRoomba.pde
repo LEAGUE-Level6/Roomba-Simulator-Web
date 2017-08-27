@@ -109,5 +109,4 @@ public void setAngularVelocity(float newVelocity) {
 
 public void setLinearVelocity(PVector newVelocity) {
   linearVelocity = new PVector(newVelocity.x * 1.6, newVelocity.y * -1.6);
-  println("hi");
 }
