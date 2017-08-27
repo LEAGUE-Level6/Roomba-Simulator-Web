@@ -18,12 +18,13 @@ void setup() {
   definition = 200/radius + 1;
   radius = definition * radius;
   scaleFactor = 1/definition;
+  
+  driveDirect(400, 500);
 }
 
 void draw() {
   background(255);
   display();
-  driveDirect(400, 500);
   update();
 }
 
