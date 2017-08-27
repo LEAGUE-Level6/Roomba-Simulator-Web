@@ -3,7 +3,7 @@ private int light = 50;
 private int incRed = -4;
 private float x = 450;
 private float y = 450;
-private float radius = 50;
+private float radius = 25;
 private boolean bump;
 private int GRID_SIZE = 4;
 private float definition; 
