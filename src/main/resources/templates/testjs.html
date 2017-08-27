@@ -9,6 +9,11 @@
   	  		p.driveDirect(0,0);
   	  		
   	  	}
+  	  	function go(){
+	  		var p = Processing.getInstanceById('sketch');
+	  		p.driveDirect(500,400);
+	  		
+	  	}
   	  </script>
   </head>
   <body>
@@ -16,6 +21,7 @@
       <p>This is my first Processing.js web-based sketch:</p>
      	<canvas id="sketch" data-processing-sources="../DisplayRoomba.pde"></canvas>
         <button onclick="stop()"> STOP </button>
+        <button onclick="go()"> GO </button>
  </body>
  </html>
 
