@@ -73,13 +73,14 @@ $scope.runSimulation = function() {
 };
 
 $scope.testProcessing = function() {
+
 	var p;
 
     if (!p) {
     p = Processing.getInstanceById('sketch');
     }
 
-    p.roomba.driveDirect(200,300);
+    p.getRoomba().driveDirect(200,300);
 }
 });
 
