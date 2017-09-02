@@ -11,8 +11,8 @@ public EndZone endZone;
 
 void setup() {
   size(900, 900);
-  roomba = new Roomba("r1", 506.5, 800, PIPE_LENGTH/4);
-  endZone = new EndZone(506.5, 100, 20);
+  roomba = new Roomba("r1", 506.25, 800, PIPE_LENGTH/4);
+  endZone = new EndZone(506.25, 100, 20);
 
   verticalPaths.add(new Path(4, 0));
   verticalPaths.add(new Path(4, 1));
