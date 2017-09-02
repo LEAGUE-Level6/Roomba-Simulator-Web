@@ -1,27 +1,14 @@
  <!DOCTYPE html>
   <html>
   <head>
-      <title>Oh my goodness, it worked</title>
+      <title>Ryan Nagle is a Carry</title>
       <script type="text/javascript" src="../processing.min.js"></script>
-  	  <script type="text/javascript">
-  	  	function stop(){
-  	  		var p = Processing.getInstanceById('sketch');
-  	  		p.driveDirect(0,0);
-  	  		
-  	  	}
-  	  	function go(){
-	  		var p = Processing.getInstanceById('sketch');
-	  		p.driveDirect(500,500);
-	  		
-	  	}
-  	  </script>
+
   </head>
   <body>
       <h1>Processing.js Test</h1>
       <p>This is my first Processing.js web-based sketch:</p>
      	<canvas id="sketch" data-processing-sources="../RoombaSimulator.pde ../Entity.pde ../EndZone.pde ../Path.pde ../Roomba.pde ../Wall.pde"></canvas>
-        <button onclick="stop()"> STOP </button>
-        <button onclick="go()"> GO </button>
  </body>
  </html>
 
