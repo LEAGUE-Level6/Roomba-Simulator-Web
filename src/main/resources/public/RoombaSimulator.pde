@@ -11,7 +11,7 @@ public EndZone endZone;
 
 void setup() {
   size(900, 900);
-  roomba = new Roomba("r1", 507, 800, PIPE_LENGTH/4);
+  roomba = new Roomba("r1", 508, 800, PIPE_LENGTH/4);
   endZone = new EndZone(504, 100, 20);
 
   verticalPaths.add(new Path(4, 0));
@@ -78,8 +78,4 @@ void drawMaze() {
   for (int i = walls.size() - 1; i >= 0; i--) {
     walls.get(i).display();
   }
-}
-
-void mousePressed() {
-  roomba.driveDirect(0,0);
 }
