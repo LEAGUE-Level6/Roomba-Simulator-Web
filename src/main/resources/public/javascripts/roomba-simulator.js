@@ -60,6 +60,7 @@ $scope.runSimulation = function() {
 	$http.post("/runsim", $scope.code).then(
 		function successCallback(response) {
 			alert(response.data);
+
 		},
 
 		function errorCallback(response) {
@@ -70,5 +71,15 @@ $scope.runSimulation = function() {
 		}
 	);
 };
+
+$scope.testProcessing = function() {
+	var p;
+
+    if (!p) {
+    p = Processing.getInstanceById('sketch');
+    }
+
+    p.roomba.driveDirect(200,300);
+}
 });
 
