@@ -18,6 +18,9 @@ package com.example;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import org.codehaus.commons.compiler.CompileException;
+import org.codehaus.janino.SimpleCompiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -64,6 +67,19 @@ public class Main {
   @RequestMapping(path = "/runsim", method = RequestMethod.POST)
   ResponseEntity<String> runSimulation(@RequestBody String code) {
     System.out.println(code);
+    SimpleCompiler compiler = new SimpleCompiler();
+    try {
+		compiler.cook(code);
+	} catch (CompileException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    ClassLoader classloader = compiler.getClassLoader();            
+    try {
+        Class<?> cl = classloader.loadClass("org.jointheleague.ecolban.cleverrobot.CleverRobot");         
+    } catch (ClassNotFoundException e1) {
+        e1.printStackTrace();
+    }   
     return ResponseEntity.ok("{'code':'" + code + "'}");
   }
   
