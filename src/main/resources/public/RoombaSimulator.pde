@@ -29,6 +29,10 @@ void setup() {
   roomba.driveDirect(500, 500);
 }
 
+Roomba getRoomba() {
+  return roomba;
+}
+
 void draw() {
   background(255);
   drawMaze();
