@@ -1,5 +1,5 @@
-public static int GRID_SIZE = 8;
-public static final int SCREEN_SIZE = 900;
+public static int GRID_SIZE = 12;
+public static final int SCREEN_SIZE = 823;
 public static int PIPE_LENGTH = SCREEN_SIZE / GRID_SIZE;
 public static int PIPE_WIDTH = 4;
 private ArrayList<Path> verticalPaths = new ArrayList<Path>();
@@ -7,30 +7,30 @@ private ArrayList<Path> horizontalPaths = new ArrayList<Path>();
 private ArrayList<Wall> walls = new ArrayList<Wall>();
 public Roomba roomba;
 public EndZone endZone;
+public float inc;
 
 
 void setup() {
-  size(900, 900);
-  roomba = new Roomba("r1", 506.25, 800, PIPE_LENGTH/4);
-  endZone = new EndZone(506.25, 100, 20);
 
-  verticalPaths.add(new Path(4, 0));
-  verticalPaths.add(new Path(4, 1));
-  verticalPaths.add(new Path(4, 2));
-  verticalPaths.add(new Path(4, 3));
-  verticalPaths.add(new Path(4, 4));
-  verticalPaths.add(new Path(4, 5));
-  verticalPaths.add(new Path(4, 6));
-  verticalPaths.add(new Path(4, 7));
-  verticalPaths.add(new Path(4, 8));
-  
-  
+  size(823, 823);
+  roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
+  endZone = new EndZone(510, 100, 10);
+
+  verticalPaths.add(new Path(7, 1));
+  verticalPaths.add(new Path(7, 2));
+  verticalPaths.add(new Path(7, 3));
+  verticalPaths.add(new Path(7, 4));
+  verticalPaths.add(new Path(7, 5));
+  verticalPaths.add(new Path(7, 6));
+  verticalPaths.add(new Path(7, 7));
+  verticalPaths.add(new Path(7, 8));
+  verticalPaths.add(new Path(7, 9));
+  verticalPaths.add(new Path(7, 10));
+  verticalPaths.add(new Path(7, 11));
+
+
   setMaze();
   roomba.driveDirect(500, 500);
-}
-
-Roomba getRoomba() {
-  return roomba;
 }
 
 void draw() {
@@ -38,17 +38,8 @@ void draw() {
   drawMaze();
   roomba.display();
   endZone.display();
-  roomba.update();
-  stroke(0);
-  strokeWeight(1.5);
-  fill(255);
-  rectMode(CORNER);
-  rect(15, 5, 370, 20);
-  fill(255, 0, 0);
-  text("Left Sensor: " + (int) roomba.getUltrasonicDistance(LEFT), 20, 20);
-  text("Center Sensor: " + (int) roomba.getUltrasonicDistance(CENTER), 145, 20);
-  text("Right Sensor: " + (int) roomba.getUltrasonicDistance(RIGHT), 275, 20);
-  
+  if (!roomba.bump)
+    roomba.update();
 }
 
 void setMaze() {
@@ -82,4 +73,11 @@ void drawMaze() {
   for (int i = walls.size() - 1; i >= 0; i--) {
     walls.get(i).display();
   }
+}
+
+void drawCircle(float x, float y, float r) {
+  noFill();
+  stroke(255, 0, 0);
+  ellipse(x+r, y, r*2, r*2);
+  //println(r);
 }
