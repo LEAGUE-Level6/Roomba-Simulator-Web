@@ -2,7 +2,7 @@
 <html xmlns:th = "http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}" >
 
 <body ng-app ="roombaSimApp">
-	<div ng-controller ="roombaSimController" >
+	<div id="controller" ng-controller ="roombaSimController" >
 
 		<form>
 			<textarea ui-codemirror = "editorOptions" ng-model = "code">
@@ -16,9 +16,10 @@
 		<button ng-click = "testProcessing()">
 			Test Processing
 		</button>
-
+		
 		<canvas id="sketch" data-processing-sources="../RoombaSimulator.pde ../Entity.pde ../EndZone.pde ../Path.pde ../Roomba.pde ../Wall.pde"></canvas>
-	</div>
+	
+<script type="application/processing" data-processing-target="sketch">roomba.driveDirect(500,500);</script>
+</div>
 </body>
-
 </html>

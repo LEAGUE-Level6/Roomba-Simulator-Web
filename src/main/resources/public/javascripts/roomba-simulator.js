@@ -8,7 +8,8 @@ $scope.editorOptions = {
 	matchBrackets: true,
 	mode: 'text/x-java'
 };
-$scope.code = 
+$scope.code = 'test';
+/*
 'package org.jointheleague.ecolban.cleverrobot; \n '+ 
 ' \n ' +
 'import java.io.IOException; \n' +
@@ -55,21 +56,22 @@ $scope.code =
 '		closeConnection(); \n ' +
 '	} \n ' +
 '} \n ' +
-'\n ';
+'\n '; */
+
+
+
 $scope.runSimulation = function() {
-	$http.post("/runsim", $scope.code).then(
-		function successCallback(response) {
-			alert(response.data);
-
-		},
-
-		function errorCallback(response) {
-			alert("failure in running simulation");
-			console.log(response.data);
-			console.log(response.status);
-			console.log(JSON.stringify(response));
-		}
-	);
+	var scriptTag = document.createElement("script");
+	var code = document.createTextNode($scope.code);
+	scriptTag.appendChild(code);
+	var typeAttr = document.createAttribute("type");
+	typeAttr.value = "application/processing";
+	scriptTag.setAttributeNode(typeAttr);
+	var targetAttr = document.createAttribute("data-processing-target");
+	targetAttr.value = "sketch";
+	scriptTag.setAttributeNode(targetAttr);
+	var controllerTag = document.getElementById("controller");
+	controllerTag.appendChild(scriptTag);
 };
 
 $scope.testProcessing = function() {
