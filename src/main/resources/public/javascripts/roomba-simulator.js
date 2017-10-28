@@ -8,7 +8,15 @@ $scope.editorOptions = {
 	matchBrackets: true,
 	mode: 'text/x-java'
 };
-$scope.code = 'test';
+$scope.code = 
+'void setup() \n' +
+'{ \n' +
+'} \n' +
+'void draw() \n' +
+'{ \n' +
+'}'; 
+
+
 /*
 'package org.jointheleague.ecolban.cleverrobot; \n '+ 
 ' \n ' +
@@ -61,28 +69,19 @@ $scope.code = 'test';
 
 
 $scope.runSimulation = function() {
-	var scriptTag = document.createElement("script");
-	var code = document.createTextNode($scope.code);
-	scriptTag.appendChild(code);
-	var typeAttr = document.createAttribute("type");
-	typeAttr.value = "application/processing";
-	scriptTag.setAttributeNode(typeAttr);
-	var targetAttr = document.createAttribute("data-processing-target");
-	targetAttr.value = "sketch";
-	scriptTag.setAttributeNode(targetAttr);
-	var controllerTag = document.getElementById("controller");
-	controllerTag.appendChild(scriptTag);
-};
 
-$scope.testProcessing = function() {
-
-	var p;
-
-    if (!p) {
+var processingCode = $scope.code;
+var jsCode = Processing.compile(processingCode).sourceCode;
+var func = eval(jsCode); 
+var p;
+ if (!p) 
+ {
     p = Processing.getInstanceById('sketch');
-    }
+   }
+   func(p);
+console.log(jsCode);
+console.log();
 
-    p.getRoomba().driveDirect(200,300);
-}
+};
 });
 
