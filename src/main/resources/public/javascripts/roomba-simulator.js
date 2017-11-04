@@ -73,11 +73,10 @@ $scope.runSimulation = function() {
 var processingCode = $scope.code;
 var jsCode = Processing.compile(processingCode).sourceCode;
 var func = eval(jsCode); 
-var p;
- if (!p) 
- {
-    p = Processing.getInstanceById('sketch');
-   }
+var p=Processing.getInstanceById('sketch');
+console.log(p.Roomba);
+
+drawCircle = p.drawCircle;
    func(p);
 console.log(jsCode);
 console.log();

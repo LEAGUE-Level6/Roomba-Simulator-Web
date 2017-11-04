@@ -79,10 +79,10 @@ class Roomba {
     angle += angularVelocity;
     x += linearVelocity.x;
     y += linearVelocity.y;
-    println("xSpeed: " + linearVelocity.x);
-    println("ySpeed: " + linearVelocity.y);
-    println("a: " + a);
-    println("dRadius: " + drivingRadius);
+//    println("xSpeed: " + linearVelocity.x);
+//    println("ySpeed: " + linearVelocity.y);
+//    println("a: " + a);
+//    println("dRadius: " + drivingRadius);
   }
 
   private int drawRedDot() {

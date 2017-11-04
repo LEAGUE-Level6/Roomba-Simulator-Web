@@ -79,5 +79,5 @@ void drawCircle(float x, float y, float r) {
   noFill();
   stroke(255, 0, 0);
   ellipse(x+r, y, r*2, r*2);
-  //println(r);
+  println(r);
 }
