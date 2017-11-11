@@ -12,7 +12,7 @@ $scope.code =
 'void setup() \n' +
 '{ \n' +
 '} \n' +
-'void draw() \n' +
+'void roboLoop() \n' +
 '{ \n' +
 '}'; 
 
@@ -74,9 +74,13 @@ var processingCode = $scope.code;
 var jsCode = Processing.compile(processingCode).sourceCode;
 var func = eval(jsCode); 
 var p=Processing.getInstanceById('sketch');
-console.log(p.Roomba);
-
+console.log(p.getRoomba());
+//using a dedicated method to call draw in processing then using that method in java script
+callDraw = p.callDraw;
 drawCircle = p.drawCircle;
+driveDirect = p.driveDirect;
+
+
    func(p);
 console.log(jsCode);
 console.log();

@@ -30,18 +30,36 @@ void setup() {
 
 
   setMaze();
-  roomba.driveDirect(500, 500);
-}
+ roomba.driveDirect(500,500);
 
+}
+void callDraw()
+{
+draw();
+}
 void draw() {
+  roboLoop();
   background(255);
   drawMaze();
   roomba.display();
   endZone.display();
+  
   if (!roomba.bump)
     roomba.update();
+    
 }
+void roboLoop()
+{
 
+}
+Roomba getRoomba()
+{
+	return roomba;
+}
+void driveDirect(float left, float right)
+{
+roomba.driveDirect(left, right);
+}
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_SIZE + 1; i++) {
@@ -76,6 +94,7 @@ void drawMaze() {
 }
 
 void drawCircle(float x, float y, float r) {
+
   noFill();
   stroke(255, 0, 0);
   ellipse(x+r, y, r*2, r*2);
