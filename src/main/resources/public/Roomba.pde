@@ -45,9 +45,10 @@ class Roomba {
     text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
     text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
     text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20);
-    //println("aVelocity: " + angularVelocity);
-    //println("dRadius: " + drivingRadius);
-    //println("angle: " + drivingRadius);
+   // println("aVelocity: " + angularVelocity);
+  //  println("dRadius: " + drivingRadius);
+   // println("preSpeed: " + preSpeed);
+   // println("linearVelocity: " + linearVelocity);
   }
 
   public float getRadius() {

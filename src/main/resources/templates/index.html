@@ -3,12 +3,6 @@
 
 <body ng-app ="roombaSimApp">
 	<div id="controller" ng-controller ="roombaSimController" >
-
-		<form>
-			<textarea ui-codemirror = "editorOptions" ng-model = "code">
-			</textarea>
-		</form>
-
 		<button ng-click = "runSimulation()">
 			Run simulation...
 		</button>
@@ -17,9 +11,12 @@
 			Test Processing
 		</button>
 		
+		<form>
+			<textarea ui-codemirror = "editorOptions" ng-model = "code">
+			</textarea>
+		</form>
+
 		<canvas id="sketch" data-processing-sources="../RoombaSimulator.pde ../Entity.pde ../EndZone.pde ../Path.pde ../Roomba.pde ../Wall.pde"></canvas>
-	
-<script type="application/processing" data-processing-target="sketch">roomba.driveDirect(500,500);</script>
-</div>
+	</div>
 </body>
 </html>

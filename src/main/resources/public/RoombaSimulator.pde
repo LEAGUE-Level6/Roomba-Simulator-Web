@@ -27,10 +27,10 @@ void setup() {
   verticalPaths.add(new Path(7, 9));
   verticalPaths.add(new Path(7, 10));
   verticalPaths.add(new Path(7, 11));
-
+  println("simulationSetup()");
 
   setMaze();
- roomba.driveDirect(500,500);
+
 
 }
 void callDraw()
@@ -38,27 +38,26 @@ void callDraw()
 draw();
 }
 void draw() {
-  roboLoop();
+
   background(255);
   drawMaze();
   roomba.display();
   endZone.display();
-  
-  if (!roomba.bump)
+  //drawCircle(100,100,frameCount);
+  if (!roomba.bump) {
     roomba.update();
+  }
     
 }
-void roboLoop()
-{
 
-}
 Roomba getRoomba()
 {
 	return roomba;
 }
 void driveDirect(float left, float right)
 {
-roomba.driveDirect(left, right);
+println("hi");
+getRoomba().driveDirect(left, right);
 }
 void setMaze() {
   int offset = PIPE_LENGTH / 2;

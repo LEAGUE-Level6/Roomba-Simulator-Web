@@ -11,9 +11,12 @@ $scope.editorOptions = {
 $scope.code = 
 'void setup() \n' +
 '{ \n' +
+'   println("userSetup()"); \n' +
 '} \n' +
 'void roboLoop() \n' +
 '{ \n' +
+'  println("roboLoop()"); \n'+
+'  driveDirect(500,500); \n'+
 '}'; 
 
 
@@ -70,20 +73,44 @@ $scope.code =
 
 $scope.runSimulation = function() {
 
-var processingCode = $scope.code;
-var jsCode = Processing.compile(processingCode).sourceCode;
-var func = eval(jsCode); 
-var p=Processing.getInstanceById('sketch');
-console.log(p.getRoomba());
-//using a dedicated method to call draw in processing then using that method in java script
-callDraw = p.callDraw;
-drawCircle = p.drawCircle;
-driveDirect = p.driveDirect;
+	var processingCode = $scope.code;
+	var jsCode = Processing.compile(processingCode).sourceCode;
+	var func = eval(jsCode); 
+	var p=Processing.getInstanceById('sketch');
+	console.log(p.getRoomba());
+	//using a dedicated method to call draw in processing then using that method in java script
+	callDraw = p.callDraw;
+	drawCircle = p.drawCircle;
+	driveDirect = p.driveDirect;
+	getRoomba = p.getRoomba;
+	
+	
+	
+	
+	p.simulationSetup = p.setup
+	p.simulationDraw = p.draw
+	func(p)
+	p.userSetup = p.setup
 
 
-   func(p);
-console.log(jsCode);
-console.log();
+	
+	p.setup = function()
+	{
+		p.userSetup()
+		p.simulationSetup()
+	}
+	p.draw = function()
+	{
+		p.println("draw()");
+		p.simulationDraw()
+		p.roboLoop()
+	}
+	
+	
+	console.log(p.simulationDraw)
+console.log(getRoomba())
+	console.log(jsCode);
+	console.log();
 
 };
 });
