@@ -40,7 +40,7 @@ class Roomba {
     strokeWeight(1.5);
     fill(255);
     rectMode(CORNER);
-    rect(15, 5, 370, 20);
+    rect(15, 5, 470, 20);
     fill(255, 0, 0);
     text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
     text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
