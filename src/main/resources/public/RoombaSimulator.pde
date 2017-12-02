@@ -28,7 +28,6 @@ void setup() {
   verticalPaths.add(new Path(7, 10));
   verticalPaths.add(new Path(7, 11));
   println("simulationSetup()");
-
   setMaze();
 
 
@@ -47,6 +46,10 @@ void draw() {
   if (!roomba.bump) {
     roomba.update();
   }
+  frameRate(15);
+  text("Time: " + (int)(frameCount/(15 * 60)) + ":" + nf((frameCount/15.0)%60, 2, 2), 400, 20);
+  text("framerate: " + frameRate,400,50);
+  
     
 }
 
