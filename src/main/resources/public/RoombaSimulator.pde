@@ -29,7 +29,8 @@ void setup() {
   verticalPaths.add(new Path(7, 11));
   println("simulationSetup()");
 
-  setMaze();
+
+  //setMaze();
 
 
 }

@@ -1,0 +1,15 @@
+{
+"start":{
+	"coord":{"x":10, "y":10},
+	"orientation":10
+},
+"finishCoord":{
+	"x":800, "y":800
+},
+"verticalPaths":[
+	{"x":7, "y":1}
+],
+"horizontalPaths":[
+	{"x":7, "y":1}
+]
+}
