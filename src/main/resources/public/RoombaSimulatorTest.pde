@@ -10,36 +10,23 @@ public EndZone endZone;
 public float inc;
 
 
+
 void setup() {
 
   size(823, 823);
   roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
   endZone = new EndZone(510, 100, 10);
 
-  verticalPaths.add(new Path(7, 1));
-  verticalPaths.add(new Path(7, 2));
-  verticalPaths.add(new Path(7, 3));
-  verticalPaths.add(new Path(7, 4));
-  verticalPaths.add(new Path(7, 5));
-  verticalPaths.add(new Path(7, 6));
-  verticalPaths.add(new Path(7, 7));
-  verticalPaths.add(new Path(7, 8));
-  verticalPaths.add(new Path(7, 9));
-  verticalPaths.add(new Path(7, 10));
-  verticalPaths.add(new Path(7, 11));
-  println("simulationSetup()");
-  setMaze();
-
-
+  //MazeMaker maker = new MazeMaker();
+  //maker.createMaze();
+  //setMaze();
+  
+  roomba.driveDirect(0, 0);
 }
-void callDraw()
-{
-draw();
-}
+
 void draw() {
-
   background(255);
-  drawMaze();
+  //drawMaze();
   roomba.display();
   endZone.display();
   //drawCircle(100,100,frameCount);
@@ -52,19 +39,13 @@ void draw() {
     
 }
 
-Roomba getRoomba()
-{
-	return roomba;
-}
-void driveDirect(float left, float right)
-{
-println("hi");
-getRoomba().driveDirect(left, right);
-}
-void setMaze() {
+
+void setMaze() {  
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_SIZE + 1; i++) {
     for (int j = 0; j < GRID_SIZE + 1; j++) {
+
+
       boolean setVert = true;
       boolean setHorz = true;
       for (Path p : verticalPaths) {
@@ -95,9 +76,8 @@ void drawMaze() {
 }
 
 void drawCircle(float x, float y, float r) {
-
   noFill();
   stroke(255, 0, 0);
   ellipse(x+r, y, r*2, r*2);
-  println(r);
+  //println(r);
 }
