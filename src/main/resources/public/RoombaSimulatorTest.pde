@@ -10,6 +10,7 @@ public EndZone endZone;
 public float inc;
 
 
+
 void setup() {
   size(823, 823);
   roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
@@ -18,17 +19,18 @@ void setup() {
 
 void draw() {
 
+
+void draw() {
   background(255);
-  drawMaze();
+  //drawMaze();
   roomba.display();
   endZone.display();
   //drawCircle(100,100,frameCount);
   if (!roomba.bump) {
     roomba.update();
   }
-  frameRate(15);
-  text("Time: " + (int)(frameCount/(15 * 60)) + ":" + nf((frameCount/15.0)%60, 2, 2), 400, 20);
-  text("framerate: " + frameRate,400,50);
+  
+  text("Time: " + (int)(millis()/60000) + ":" + nf((millis()/1000.0)%60, 2, 2), 400, 20);
   
     
 }
@@ -57,6 +59,8 @@ void setMaze() {
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_SIZE + 1; i++) {
     for (int j = 0; j < GRID_SIZE + 1; j++) {
+
+
       boolean setVert = true;
       boolean setHorz = true;
       for (Path p : verticalPaths) {
@@ -87,9 +91,8 @@ void drawMaze() {
 }
 
 void drawCircle(float x, float y, float r) {
-
   noFill();
   stroke(255, 0, 0);
   ellipse(x+r, y, r*2, r*2);
-  println(r);
+  //println(r);
 }
