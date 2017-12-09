@@ -1,12 +1,22 @@
 var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
-roombaSim.controller('roombaSimController', function($scope, $http) {
+roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 	$http({
 	  method: 'GET',
-	  url: '/mazes/level0.json'
+	  url: '/mazes' + $window.location.pathname + '.json'
 	}).then(function successCallback(response) {
-		console.log(response.data);
+		console.log(angular.toJson(response.data));
+		var hPaths = response.data.horizontalPaths;
+		var vPaths = response.data.verticalPaths;
 		var p = Processing.getInstanceById('sketch');
+		for(var i = 0; i< hPaths.length; i++)
+		{
+			p.addHorizontalPath(hPaths[i].x, hPaths[i].y);
+		}
+		for(var j = 0; j < vPaths.length; j++)
+		{
+			p.addVerticalPath(vPaths[j].x, vPaths[j].y);
+		}
 		p.setMaze();
 	    // this callback will be called asynchronously
 	    // when the response is available

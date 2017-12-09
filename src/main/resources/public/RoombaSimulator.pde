@@ -11,32 +11,11 @@ public float inc;
 
 
 void setup() {
-
   size(823, 823);
   roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
   endZone = new EndZone(510, 100, 10);
-
-  verticalPaths.add(new Path(7, 1));
-  verticalPaths.add(new Path(7, 2));
-  verticalPaths.add(new Path(7, 3));
-  verticalPaths.add(new Path(7, 4));
-  verticalPaths.add(new Path(7, 5));
-  verticalPaths.add(new Path(7, 6));
-  verticalPaths.add(new Path(7, 7));
-  verticalPaths.add(new Path(7, 8));
-  verticalPaths.add(new Path(7, 9));
-  verticalPaths.add(new Path(7, 10));
-  verticalPaths.add(new Path(7, 11));
-  println("simulationSetup()");
-  //setMaze();
-
-
-
 }
-void callDraw()
-{
-draw();
-}
+
 void draw() {
 
   background(255);
@@ -52,6 +31,17 @@ void draw() {
   text("framerate: " + frameRate,400,50);
   
     
+}
+
+void addVerticalPath(int x, int y)
+{
+	verticalPaths.add(new Path(x, y));
+	println(verticalPaths);
+}
+
+void addHorizontalPath(int x, int y)
+{
+	horizontalPaths.add(new Path(x, y));
 }
 
 Roomba getRoomba()
