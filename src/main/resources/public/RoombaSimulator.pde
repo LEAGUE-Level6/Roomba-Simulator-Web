@@ -46,9 +46,8 @@ void draw() {
   if (!roomba.bump) {
     roomba.update();
   }
-  frameRate(15);
-  text("Time: " + (int)(frameCount/(15 * 60)) + ":" + nf((frameCount/15.0)%60, 2, 2), 400, 20);
-  text("framerate: " + frameRate,400,50);
+  
+  text("Time: " + (int)(millis()/60000) + ":" + nf((millis()/1000.0)%60, 2, 2), 400, 20);
   
     
 }
