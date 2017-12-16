@@ -17,22 +17,30 @@ void setup() {
   roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
   endZone = new EndZone(510, 100, 10);
 
-  //MazeMaker maker = new MazeMaker();
-  //maker.createMaze();
-  //setMaze();
-  
-  roomba.driveDirect(0, 0);
+  MazeMaker maker = new MazeMaker();
+  maker.createMaze();
+  setMaze();
+
+driveDirect(1,1);
 }
 
 void draw() {
   background(255);
-  //drawMaze();
+  drawMaze();
   roomba.display();
   endZone.display();
   roomba.update();
 }
 
+Roomba getRoomba()
+{
+return roomba;
+}
 
+void driveDirect(int left, int right)
+{
+getRoomba().driveDirect(left, right);
+}
 void setMaze() {  
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_SIZE + 1; i++) {

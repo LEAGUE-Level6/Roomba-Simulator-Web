@@ -52,10 +52,7 @@ class Roomba {
     text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
     text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
     text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20); 
-    //println(degrees(angle));
-    //println("aVelocity: " + angularVelocity);
-    //println("dRadius: " + drivingRadius);
-    println("angle: " + angle);
+  
   }
 
   public float getRadius() {
@@ -237,7 +234,6 @@ class Roomba {
     //ySpeed = -ySpeed;
     //xSpeed = -xSpeed; 
     //}
-    println(xSpeed + ", " + ySpeed);
     
     
     Entity testEntity = new Entity();
@@ -294,7 +290,6 @@ class Roomba {
     if (testEntity.checkCollision(x + wideRadius, y) != null || testEntity.checkCollision(x - wideRadius, y) != null  || testEntity.checkCollision(x, y + wideRadius)  != null || testEntity.checkCollision(x, y - wideRadius)  != null /* || x + wideRadius >= width || x - wideRadius <= 0  || y + wideRadius >= height */ || y - wideRadius <= 0 ) {
       setBump(true);
       //if(testEntity.getCollided().getId().equals("endzone")) {
-      //  println("you win");
       //}
     } else {
       setBump(false);
