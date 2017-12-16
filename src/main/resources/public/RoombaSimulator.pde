@@ -12,36 +12,50 @@ public float inc;
 
 
 void setup() {
-
   size(823, 823);
   roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
   endZone = new EndZone(510, 100, 10);
-
-  MazeMaker maker = new MazeMaker();
-  maker.createMaze();
-  setMaze();
-
-driveDirect(1,1);
 }
+
+
+
 
 void draw() {
   background(255);
-  drawMaze();
+  //drawMaze();
   roomba.display();
   endZone.display();
-  roomba.update();
+  //drawCircle(100,100,frameCount);
+  if (!roomba.bump) {
+    roomba.update();
+  }
+  
+  text("Time: " + (int)(millis()/60000) + ":" + nf((millis()/1000.0)%60, 2, 2), 400, 20);
+  
+    
+}
+
+void addVerticalPath(int x, int y)
+{
+	verticalPaths.add(new Path(x, y));
+	println(verticalPaths);
+}
+
+void addHorizontalPath(int x, int y)
+{
+	horizontalPaths.add(new Path(x, y));
 }
 
 Roomba getRoomba()
 {
-return roomba;
+	return roomba;
 }
-
-void driveDirect(int left, int right)
+void driveDirect(float left, float right)
 {
+println("hi");
 getRoomba().driveDirect(left, right);
 }
-void setMaze() {  
+void setMaze() {
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_SIZE + 1; i++) {
     for (int j = 0; j < GRID_SIZE + 1; j++) {
