@@ -1,4 +1,5 @@
 var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
+
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 	$http({
@@ -56,35 +57,37 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		var p=Processing.getInstanceById('sketch');
 	
 		//using a dedicated method to call draw in processing then using that method in java script
-		callDraw = p.callDraw;
-		drawCircle = p.drawCircle;
+		
+	
 		driveDirect = p.driveDirect;
 		
 		
 		
 		
-		p.simulationSetup = p.setup
-		p.simulationDraw = p.draw
-		func(p)
-		p.userSetup = p.setup
-	
 		
-	
-		
-		p.setup = function()
-		{
-			p.userSetup()
-			p.simulationSetup()
+
+
+		if(!p.simulationDraw ) 
+		{	
+			p.simulationDraw = p.draw  
 		}
+
+			
+		
+		
+		func(p)
+	
+		
+
+		p.setup()
 		p.draw = function()
 		{
 			p.simulationDraw()
 			p.roboLoop()
 		}
-		
-		
-		console.log(p.simulationDraw)
-		
+			
+	
+		console.log(p.draw)
 		console.log(jsCode);
 		console.log();
 
