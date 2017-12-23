@@ -50,12 +50,11 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode); 
 		var p=Processing.getInstanceById('sketch');
-		console.log(p.getRoomba());
+	
 		//using a dedicated method to call draw in processing then using that method in java script
 		callDraw = p.callDraw;
 		drawCircle = p.drawCircle;
 		driveDirect = p.driveDirect;
-		getRoomba = p.getRoomba;
 		
 		
 		
@@ -65,6 +64,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		func(p)
 		p.userSetup = p.setup
 	
+		
 	
 		
 		p.setup = function()
@@ -74,14 +74,13 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		}
 		p.draw = function()
 		{
-			p.println("draw()");
 			p.simulationDraw()
 			p.roboLoop()
 		}
 		
 		
 		console.log(p.simulationDraw)
-		console.log(getRoomba())
+		
 		console.log(jsCode);
 		console.log();
 

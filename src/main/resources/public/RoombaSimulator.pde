@@ -17,12 +17,12 @@ void setup() {
   endZone = new EndZone(510, 100, 10);
 }
 
-void draw() {
+
 
 
 void draw() {
   background(255);
-  //drawMaze();
+  drawMaze();
   roomba.display();
   endZone.display();
   //drawCircle(100,100,frameCount);
