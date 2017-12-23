@@ -8,6 +8,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		console.log(angular.toJson(response.data));
 		var hPaths = response.data.horizontalPaths;
 		var vPaths = response.data.verticalPaths;
+		var startCoord = response.data.start.coord;
+		var finishCoord = response.data.finishCoord;
 		var p = Processing.getInstanceById('sketch');
 		for(var i = 0; i< hPaths.length; i++)
 		{
@@ -17,6 +19,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		{
 			p.addVerticalPath(vPaths[j].x, vPaths[j].y);
 		}
+		p.startingPointLocations(startCoord.x, startCoord.y)
+		p.finishingPointLocation(finishCoord.x, finishCoord.y);
 		p.setMaze();
 	    // this callback will be called asynchronously
 	    // when the response is available
