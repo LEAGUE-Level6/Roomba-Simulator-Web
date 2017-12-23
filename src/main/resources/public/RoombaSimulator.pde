@@ -15,6 +15,7 @@ void setup() {
   size(823, 823);
   roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
   endZone = new EndZone(510, 100, 10);
+  driveDirect(.1,.1);
 }
 
 
