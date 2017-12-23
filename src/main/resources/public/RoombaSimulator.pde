@@ -13,9 +13,9 @@ public float inc;
 
 void setup() {
   size(823, 823);
-  roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
-  endZone = new EndZone(510, 100, 10);
   driveDirect(.1,.1);
+  //roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
+  //endZone = new EndZone(510, 100, 10);
 }
 
 
@@ -45,6 +45,16 @@ void addVerticalPath(int x, int y)
 void addHorizontalPath(int x, int y)
 {
 	horizontalPaths.add(new Path(x, y));
+}
+
+void startingPointLocations(int x, int y)
+{
+	roomba = new Roomba("r1", x, y, PIPE_LENGTH * 0.2407);
+}
+
+void finishingPointLocation(int x, int y)
+{
+	endZone = new EndZone(x, y, 10);
 }
 
 Roomba getRoomba()

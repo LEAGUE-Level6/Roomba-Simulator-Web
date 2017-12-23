@@ -1,10 +1,10 @@
 {
 "start":{
-	"coord":{"x":10, "y":10},
+	"coord":{"x":510, "y":420},
 	"orientation":10
 },
 "finishCoord":{
-	"x":800, "y":800
+	"x":510, "y":100
 },
 "verticalPaths":[
 	{"x":8, "y":1},
