@@ -22,7 +22,7 @@ void setup() {
 
 void draw() {
   background(255);
-  //drawMaze();
+  drawMaze();
   roomba.display();
   endZone.display();
   //drawCircle(100,100,frameCount);
