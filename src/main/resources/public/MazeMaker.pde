@@ -1,5 +1,3 @@
-import java.util.Stack;
-
 public class MazeMaker {
   private Cell[][] maze;
   private Stack<Cell> uncheckedCells = new Stack<Cell>();
