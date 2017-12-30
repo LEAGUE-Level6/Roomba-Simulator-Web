@@ -49,8 +49,19 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	'  driveDirect(500,500); \n'+
 	'}'; 
 	
-	$scope.runSimulation = function() {
+	function saveCode()
+	{
+		
+		localStorage.setItem($window.location.pathname, code);
+		
+	}
+	function loadCode()
+	{
+		var $window.location.pathname = localstorage.getItem($window.location.pathname);
+	}
 	
+	$scope.runSimulation = function() {
+	    saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode); 
