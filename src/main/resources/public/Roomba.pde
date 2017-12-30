@@ -93,13 +93,13 @@ class Roomba {
     if(r != CLOCKWISE && r != COUNTER_CLOCKWISE) {
     if(r == 0)
     {
-    a==0;
+  	  a==0;
     }
     else
     {
-    a = (speed/r) * 9.56;  
+   	 a = (speed/r) * 9.56;  
     } 
-     println(r + " " +a + " " +speed);
+    println(r + " " +a + " " +speed);
     y1 = (float) (Math.cos(angle) * speed);
     x1 = (float) (Math.sin(angle) * speed);
     }
