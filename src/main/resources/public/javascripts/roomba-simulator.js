@@ -2,6 +2,7 @@ var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
+	var orientation;
 	$http({
 	  method: 'GET',
 	  url: '/mazes' + $window.location.pathname + '.json'
@@ -10,6 +11,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		var hPaths = response.data.horizontalPaths;
 		var vPaths = response.data.verticalPaths;
 		startCoord = response.data.start.coord;
+		orientation = response.data.start.orientation;
 		var finishCoord = response.data.finishCoord;
 		var p = Processing.getInstanceById('sketch');
 		for(var i = 0; i< hPaths.length; i++)
@@ -20,7 +22,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		{
 			p.addVerticalPath(vPaths[j].x, vPaths[j].y);
 		}
-		p.startingPointLocations(startCoord.x, startCoord.y);
+		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 		p.finishingPointLocation(finishCoord.x, finishCoord.y);
 		p.setMaze();
 	    // this callback will be called asynchronously
@@ -76,7 +78,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		
 		func(p)
 	
-		p.startingPointLocations(startCoord.x, startCoord.y);
+		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 
 		p.setup()
 		p.draw = function()

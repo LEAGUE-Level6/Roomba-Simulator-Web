@@ -39,7 +39,6 @@ void draw() {
 void addVerticalPath(int x, int y)
 {
 	verticalPaths.add(new Path(x, y));
-	println(verticalPaths);
 }
 
 void addHorizontalPath(int x, int y)
@@ -47,9 +46,9 @@ void addHorizontalPath(int x, int y)
 	horizontalPaths.add(new Path(x, y));
 }
 
-void startingPointLocations(int x, int y)
+void startingPointLocations(int x, int y, float angle)
 {
-	roomba = new Roomba("r1", x, y, PIPE_LENGTH * 0.2407);
+	roomba = new Roomba("r1", x, y, PIPE_LENGTH * 0.2407, angle);
 }
 
 void finishingPointLocation(int x, int y)
