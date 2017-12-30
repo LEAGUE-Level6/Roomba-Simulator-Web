@@ -19,11 +19,12 @@ class Roomba {
   final float COUNTER_CLOCKWISE = 0x7FFF;
   
 
-  public Roomba(String id, float x, float y, float radius) {
+  public Roomba(String id, float x, float y, float radius, float angle) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.radius = radius;
+    this.angle = angle;
 
     definition = 200/radius + 1;
     drawingRadius = definition * radius;
