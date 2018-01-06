@@ -1,7 +1,17 @@
 var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
-
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
-	//loadCode();
+	$scope.code = 
+	'void setup() \n' +
+	'{ \n' +
+	'   println("userSetup()"); \n' +
+	'} \n' +
+	'void roboLoop() \n' +
+	'{ \n' +
+	'  println("roboLoop()"); \n'+
+	'  driveDirect(500,500); \n'+
+	'}'; 
+	loadCode();
+	
 	var startCoord;
 	var orientation;
 	$http({
@@ -41,31 +51,29 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		matchBrackets: true,
 		mode: 'text/x-java'
 	};
-	$scope.code = 
-	'void setup() \n' +
-	'{ \n' +
-	'   println("userSetup()"); \n' +
-	'} \n' +
-	'void roboLoop() \n' +
-	'{ \n' +
-	'  println("roboLoop()"); \n'+
-	'  driveDirect(500,500); \n'+
-	'}'; 
 	
-/*	function saveCode()
+	function saveCode()
 	{
-		
-		localStorage.setItem($window.location.pathname, code);
+		console.log($scope.code);
+		$window.localStorage.setItem($window.location.pathname, $scope.code);
 		
 	}
 	function loadCode()
 	{
-		code = localstorage.getItem($window.location.pathname);
+		var code = $window.localStorage.getItem($window.location.pathname);
+		if (code!=null)
+		{
+			$scope.code = code
+		}
+		console.log($scope.code);
 		
-	} */
+	}
+
+	
+
 	
 	$scope.runSimulation = function() {
-	  //  saveCode();
+	    saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode); 
