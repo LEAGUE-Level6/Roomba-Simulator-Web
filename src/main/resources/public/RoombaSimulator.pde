@@ -8,7 +8,7 @@ private ArrayList<Wall> walls = new ArrayList<Wall>();
 public Roomba roomba;
 public EndZone endZone;
 public float inc;
-
+private double start = 0;
 
 
 void setup() {
@@ -18,7 +18,9 @@ void setup() {
   //endZone = new EndZone(510, 100, 10);
 }
 
-
+void resetTimer(){
+	start = millis();
+}
 
 
 void draw() {
@@ -31,7 +33,7 @@ void draw() {
     roomba.update();
   }
   
-  text("Time: " + (int)(millis()/60000) + ":" + nf((millis()/1000.0)%60, 2, 2), 400, 20);
+  text("Time: " + (int)((millis() - start)/60000) + ":" + nf(((millis() - start)/1000.0)%60, 2, 2), 400, 20);
   
     
 }
