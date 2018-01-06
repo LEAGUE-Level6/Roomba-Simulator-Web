@@ -36,6 +36,11 @@ void draw() {
     
 }
 
+void generateRandomMaze() {
+	MazeMaker maker = new MazeMaker();
+  	maker.createMaze();
+}	
+
 void addVerticalPath(int x, int y)
 {
 	verticalPaths.add(new Path(x, y));
