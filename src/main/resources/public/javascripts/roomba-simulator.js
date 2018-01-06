@@ -1,6 +1,7 @@
 var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
+	//loadCode();
 	var startCoord;
 	var orientation;
 	$http({
@@ -51,7 +52,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	'  driveDirect(500,500); \n'+
 	'}'; 
 	
-	function saveCode()
+/*	function saveCode()
 	{
 		
 		localStorage.setItem($window.location.pathname, code);
@@ -59,11 +60,12 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	}
 	function loadCode()
 	{
-		var $window.location.pathname = localstorage.getItem($window.location.pathname);
-	}
+		code = localstorage.getItem($window.location.pathname);
+		
+	} */
 	
 	$scope.runSimulation = function() {
-	    saveCode();
+	  //  saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode); 
