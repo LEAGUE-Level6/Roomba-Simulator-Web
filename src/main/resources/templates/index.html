@@ -10,13 +10,15 @@
 		<button ng-click = "testProcessing()">
 			Test Processing
 		</button>
-		
+		<div id="input">
 		<form>
 			<textarea ui-codemirror = "editorOptions" ng-model = "code">
 			</textarea>
 		</form>
-
+        </div>
+        <div id="output">
 		<canvas id="sketch" data-processing-sources="../RoombaSimulator.pde ../Entity.pde ../EndZone.pde ../Path.pde ../Roomba.pde ../Wall.pde ../MazeMaker.pde"></canvas>
+		</div>
 	</div>
 </body>
 </html>
