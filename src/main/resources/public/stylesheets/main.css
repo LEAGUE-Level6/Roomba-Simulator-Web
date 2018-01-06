@@ -24,4 +24,17 @@
     border: 2px solid white; }
     .jumbotron .lang-logo img {
       max-width: 100%; }
+      
+#input  {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    right: 300px;
+}
 
+#output {
+    position: absolute;
+    top: 55px;
+    right: 300px;
+    width: 500px;
+}
