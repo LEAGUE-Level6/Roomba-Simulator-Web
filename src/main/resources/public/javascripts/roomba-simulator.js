@@ -1,7 +1,9 @@
 var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
-	
+	//loadCode();
+	var startCoord;
+	var orientation;
 	$http({
 	  method: 'GET',
 	  url: '/mazes' + $window.location.pathname + '.json'
@@ -9,7 +11,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		console.log(angular.toJson(response.data));
 		var hPaths = response.data.horizontalPaths;
 		var vPaths = response.data.verticalPaths;
-		var startCoord = response.data.start.coord;
+		startCoord = response.data.start.coord;
+		orientation = response.data.start.orientation;
 		var finishCoord = response.data.finishCoord;
 		var p = Processing.getInstanceById('sketch');
 		for(var i = 0; i< hPaths.length; i++)
@@ -20,7 +23,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		{
 			p.addVerticalPath(vPaths[j].x, vPaths[j].y);
 		}
-		p.startingPointLocations(startCoord.x, startCoord.y)
+		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 		p.finishingPointLocation(finishCoord.x, finishCoord.y);
 		p.setMaze();
 	    // this callback will be called asynchronously
@@ -49,8 +52,20 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	'  driveDirect(500,500); \n'+
 	'}'; 
 	
-	$scope.runSimulation = function() {
+/*	function saveCode()
+	{
+		
+		localStorage.setItem($window.location.pathname, code);
+		
+	}
+	function loadCode()
+	{
+		code = localstorage.getItem($window.location.pathname);
+		
+	} */
 	
+	$scope.runSimulation = function() {
+	  //  saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode); 
@@ -78,8 +93,10 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 		p.resetTimer();
 
+		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
+
 		p.setup();
-		p.draw = function();
+		p.draw = function()
 		{
 			p.simulationDraw();
 			p.roboLoop();
