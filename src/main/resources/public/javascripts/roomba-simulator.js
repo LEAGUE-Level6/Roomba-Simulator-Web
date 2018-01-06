@@ -70,21 +70,29 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 
 		driveDirect = p.driveDirect;
 
-		if (!p.simulationDraw) {
-			p.simulationDraw = p.draw
+		if(!p.simulationDraw)
+		{	
+			p.simulationDraw = p.draw;
 		}
 
-		func(p)
+			
+		
+		
+		func(p);
+	
+		p.resetTimer();
 
 		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 
-		p.setup()
-		p.draw = function() {
-			p.simulationDraw()
-			p.roboLoop()
+		p.setup();
+		p.draw = function()
+		{
+			p.simulationDraw();
+			p.roboLoop();
 		}
-
-		console.log(p.draw)
+			
+	
+		console.log(p.draw);
 		console.log(jsCode);
 		console.log();
 

@@ -64,8 +64,8 @@ public class Main {
 		return "index";
 	}
 	
-	@RequestMapping("/level{level}")
-	public String level(@PathVariable("level") int level)
+	@RequestMapping("/level*")
+	public String maze()
 	{
 		return "index";
 	}
