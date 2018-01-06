@@ -64,30 +64,29 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		
 		
 		
-		
 
 
-		if(!p.simulationDraw ) 
+		if(!p.simulationDraw)
 		{	
-			p.simulationDraw = p.draw  
+			p.simulationDraw = p.draw;
 		}
 
 			
 		
 		
-		func(p)
+		func(p);
 	
-		
+		p.resetTimer();
 
-		p.setup()
-		p.draw = function()
+		p.setup();
+		p.draw = function();
 		{
-			p.simulationDraw()
-			p.roboLoop()
+			p.simulationDraw();
+			p.roboLoop();
 		}
 			
 	
-		console.log(p.draw)
+		console.log(p.draw);
 		console.log(jsCode);
 		console.log();
 
