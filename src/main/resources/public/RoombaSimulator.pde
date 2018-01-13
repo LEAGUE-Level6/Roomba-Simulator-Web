@@ -13,6 +13,7 @@ private double end = 0;
 
 void setup() {
   size(823, 823);
+  processingLoaded();
   //driveDirect(.1,.1);
  // roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
   //endZone = new EndZone(510, 100, 10);
@@ -40,6 +41,12 @@ void draw() {
   	text("Time: 0:00.00", 400, 20);
   }
 }
+
+void generateRandomMaze() {
+	MazeMaker maker = new MazeMaker();
+  	maker.createMaze();
+  	p.setMaze();
+}	
 
 void addVerticalPath(int x, int y)
 {

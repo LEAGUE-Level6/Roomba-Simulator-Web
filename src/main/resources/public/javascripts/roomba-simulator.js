@@ -1,4 +1,19 @@
-var roombaSim = angular.module('roombaSimApp', ['ui.codemirror']);
+var roombaSim = angular.module('roombaSimApp', [ 'ui.codemirror' ]);
+
+function processingLoaded() {
+	var p = Processing.getInstanceById('sketch');
+	if (typeof (simulatorInit) === 'function') {
+		simulatorInit(p);
+	}
+}
+function onProcessingLoad(simulatorInitialization) {
+	var p = Processing.getInstanceById('sketch');
+	if (typeof (p) === 'object')
+		simulatorInitialization(p);
+	else
+		simulatorInit = simulatorInitialization;
+}
+
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	$scope.code = 
 	'void setup() \n' +
@@ -14,42 +29,53 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 	var startCoord;
 	var orientation;
-	$http({
-	  method: 'GET',
-	  url: '/mazes' + $window.location.pathname + '.json'
-	}).then(function successCallback(response) {
-		console.log(angular.toJson(response.data));
-		var hPaths = response.data.horizontalPaths;
-		var vPaths = response.data.verticalPaths;
-		startCoord = response.data.start.coord;
-		orientation = response.data.start.orientation;
-		var finishCoord = response.data.finishCoord;
-		var p = Processing.getInstanceById('sketch');
-		for(var i = 0; i< hPaths.length; i++)
-		{
-			p.addHorizontalPath(hPaths[i].x, hPaths[i].y);
-		}
-		for(var j = 0; j < vPaths.length; j++)
-		{
-			p.addVerticalPath(vPaths[j].x, vPaths[j].y);
-		}
-		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
-		p.finishingPointLocation(finishCoord.x, finishCoord.y);
-		p.setMaze();
-	    // this callback will be called asynchronously
-	    // when the response is available
-	  }, function errorCallback(response) {
-	  console.log(response.status);
-	  console.log(JSON.stringify(response));
-	    // called asynchronously if an error occurs
-	    // or server returns response with an error status.
-	  });
-	
+	if ($window.location.pathname == '/levelRandom') {
+		onProcessingLoad(function(p) {
+			p.generateRandomMaze();
+		});
+	} else {
+		$http({
+			method : 'GET',
+			url : '/mazes' + $window.location.pathname + '.json'
+		}).then(
+				function successCallback(response) {
+					onProcessingLoad(function(p) {
+						console.log(angular.toJson(response.data));
+						var hPaths = response.data.horizontalPaths;
+						var vPaths = response.data.verticalPaths;
+						startCoord = response.data.start.coord;
+						orientation = response.data.start.orientation;
+						var finishCoord = response.data.finishCoord;
+
+						for (var i = 0; i < hPaths.length; i++) {
+							p.addHorizontalPath(hPaths[i].x, hPaths[i].y);
+						}
+						for (var j = 0; j < vPaths.length; j++) {
+							p.addVerticalPath(vPaths[j].x, vPaths[j].y);
+						}
+						p.startingPointLocations(startCoord.x, startCoord.y,
+								orientation);
+						p.finishingPointLocation(finishCoord.x, finishCoord.y);
+						p.setMaze();
+					});
+
+					// this callback will be called asynchronously
+					// when the response is available
+				}, function errorCallback(response) {
+					var p = Processing.getInstanceById('sketch');
+
+					console.log(response.status);
+					console.log(JSON.stringify(response));
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+				});
+	}
+
 	$scope.editorOptions = {
-		lineWrapping: true,
-		lineNumbers: true,
-		matchBrackets: true,
-		mode: 'text/x-java'
+		lineWrapping : true,
+		lineNumbers : true,
+		matchBrackets : true,
+		mode : 'text/x-java'
 	};
 	
 	function saveCode()
@@ -76,45 +102,33 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	    saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
-		var func = eval(jsCode); 
-		var p=Processing.getInstanceById('sketch');
-	
-		//using a dedicated method to call draw in processing then using that method in java script
-		
-	
+		var func = eval(jsCode);
+		var p = Processing.getInstanceById('sketch');
+
+		// using a dedicated method to call draw in processing then using that
+		// method in java script
+
 		driveDirect = p.driveDirect;
-		
-		
-		
-		
 
-
-		if(!p.simulationDraw)
-		{	
+		if (!p.simulationDraw) {
 			p.simulationDraw = p.draw;
 		}
 
-			
-		
-		
 		func(p);
-	
+
 		p.resetTimer();
 
 		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 
 		p.setup();
-		p.draw = function()
-		{
+		p.draw = function() {
 			p.simulationDraw();
 			p.roboLoop();
 		}
-			
-	
+
 		console.log(p.draw);
 		console.log(jsCode);
 		console.log();
 
 	};
 });
-
