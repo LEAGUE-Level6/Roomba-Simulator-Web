@@ -17,7 +17,6 @@ class Roomba {
   private float angle = 0;
   final float CLOCKWISE= 0xFFFF;
   final float COUNTER_CLOCKWISE = 0x7FFF;
-  
 
   public Roomba(String id, float x, float y, float radius, float angle) {
     this.id = id;
@@ -30,7 +29,7 @@ class Roomba {
     drawingRadius = definition * radius;
     scaleFactor = 1/definition;
   }
-
+  
   public void update() {
     checkCollision();
     //drive(0, 0);
@@ -53,7 +52,7 @@ class Roomba {
     text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
     text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
     text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20); 
-  
+    
   }
 
   public float getRadius() {
