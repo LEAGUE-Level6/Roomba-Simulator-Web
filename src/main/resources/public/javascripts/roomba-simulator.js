@@ -15,7 +15,18 @@ function onProcessingLoad(simulatorInitialization) {
 }
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
-	// loadCode();
+	$scope.code = 
+	'void setup() \n' +
+	'{ \n' +
+	'   println("userSetup()"); \n' +
+	'} \n' +
+	'void roboLoop() \n' +
+	'{ \n' +
+	'  println("roboLoop()"); \n'+
+	'  driveDirect(500,500); \n'+
+	'}'; 
+	loadCode();
+	
 	var startCoord;
 	var orientation;
 	if ($window.location.pathname == '/levelRandom') {
@@ -66,20 +77,29 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		matchBrackets : true,
 		mode : 'text/x-java'
 	};
-	$scope.code = 'void setup() \n' + '{ \n' + '   println("userSetup()"); \n'
-			+ '} \n' + 'void roboLoop() \n' + '{ \n'
-			+ '  println("roboLoop()"); \n' + '  driveDirect(500,500); \n'
-			+ '}';
+	
+	function saveCode()
+	{
+		console.log($scope.code);
+		$window.localStorage.setItem($window.location.pathname, $scope.code);
+		
+	}
+	function loadCode()
+	{
+		var code = $window.localStorage.getItem($window.location.pathname);
+		if (code!=null)
+		{
+			$scope.code = code
+		}
+		console.log($scope.code);
+		
+	}
 
-	/*
-	 * function saveCode() {
-	 * 
-	 * localStorage.setItem($window.location.pathname, code); } function
-	 * loadCode() { code = localstorage.getItem($window.location.pathname); }
-	 */
+	
 
+	
 	$scope.runSimulation = function() {
-		// saveCode();
+	    saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode);
