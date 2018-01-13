@@ -9,7 +9,7 @@ public Roomba roomba;
 public EndZone endZone;
 public float inc;
 private double start = 0;
-
+private double end = 0;
 
 void setup() {
   size(823, 823);
@@ -29,13 +29,16 @@ void draw() {
   roomba.display();
   endZone.display();
   //drawCircle(100,100,frameCount);
+  roomba.update();
   if (!roomba.bump) {
-    roomba.update();
+    end = millis();
   }
   
-  text("Time: " + (int)((millis() - start)/60000) + ":" + nf(((millis() - start)/1000.0)%60, 2, 2), 400, 20);
-  
-    
+  if (start != 0){
+  	text("Time: " + (int)((end - start)/60000) + ":" + nf(((end - start)/1000.0)%60, 2, 2), 400, 20);
+  }else{
+  	text("Time: 0:00.00", 400, 20);
+  }
 }
 
 void addVerticalPath(int x, int y)
