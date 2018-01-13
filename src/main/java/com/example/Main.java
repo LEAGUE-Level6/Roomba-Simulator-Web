@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.codehaus.commons.compiler.CompileException;
@@ -35,6 +37,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,13 +63,18 @@ public class Main {
 	}
 
 	@RequestMapping("/")
-	String index() {
-		return "redirect:/level0";
+	String index(@CookieValue(value = "maze", defaultValue = "level0") String maze) {
+		System.out.println(maze);
+		return "redirect:/maze/"+ maze;
 	}
 	
-	@RequestMapping("/level*")
-	public String maze()
+	@RequestMapping("/maze/{maze}")
+	public String maze(HttpServletResponse response, @PathVariable("maze") String maze)
 	{
+		Cookie cookie = new Cookie("maze", maze);
+		cookie.setMaxAge(365*24*60*60);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 		return "index";
 	}
 

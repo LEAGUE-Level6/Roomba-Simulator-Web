@@ -29,14 +29,16 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 	var startCoord;
 	var orientation;
-	if ($window.location.pathname == '/levelRandom') {
+	var pathName = $window.location.pathname;
+	var maze = pathName.substring(pathName.lastIndexOf('/'));
+	if (maze === '/levelRandom') {
 		onProcessingLoad(function(p) {
 			p.generateRandomMaze();
 		});
 	} else {
 		$http({
 			method : 'GET',
-			url : '/mazes' + $window.location.pathname + '.json'
+			url : '/mazes' + maze + '.json'
 		}).then(
 				function successCallback(response) {
 					onProcessingLoad(function(p) {
