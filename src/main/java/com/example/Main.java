@@ -61,7 +61,7 @@ public class Main {
 
 	@RequestMapping("/")
 	String index() {
-		return "index";
+		return "redirect:/level0";
 	}
 	
 	@RequestMapping("/level*")
