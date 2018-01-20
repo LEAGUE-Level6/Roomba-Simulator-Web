@@ -1,6 +1,7 @@
-public static int GRID_SIZE = 12;
+public static int GRID_SIZE_VERTICAL = 12;
+public static int GRID_SIZE_HORIZONTAL = 6;
 public static final int SCREEN_SIZE = 823;
-public static int PIPE_LENGTH = SCREEN_SIZE / GRID_SIZE;
+public static int PIPE_LENGTH = SCREEN_SIZE / GRID_SIZE_VERTICAL;
 public static int PIPE_WIDTH = 4;
 private ArrayList<Path> verticalPaths = new ArrayList<Path>();
 private ArrayList<Path> horizontalPaths = new ArrayList<Path>();
@@ -12,7 +13,7 @@ private double start = 0;
 private double end = 0;
 
 void setup() {
-  size(823, 823);
+  size(412, 823);
   processingLoaded();
   //driveDirect(.1,.1);
  // roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
@@ -79,26 +80,36 @@ getRoomba().driveDirect(left, right);
 }
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
-  for (int i = 0; i < GRID_SIZE + 1; i++) {
-    for (int j = 0; j < GRID_SIZE + 1; j++) {
+  for (int i = 0; i < GRID_SIZE_HORIZONTAL+1 ; i++) {
+    for (int j = 0; j < GRID_SIZE_VERTICAL+1 ; j++) {
 
 
       boolean setVert = true;
       boolean setHorz = true;
-      for (Path p : verticalPaths) {
+      for (Path p : verticalPaths) { 
+ 
         if (p.getRow() == i && p.getColumn() == j) {
           setVert = false;
-        }
+        } 
+        
+        
       }
+     
       if (setVert) {
         walls.add(new Wall(PIPE_LENGTH * i + offset, PIPE_LENGTH * j, PIPE_LENGTH, PIPE_WIDTH));
       }
 
       for (Path p : horizontalPaths) {
+       if (p.getColumn() == 6) {
+          setHorz = false;
+        }
         if (p.getRow() == i && p.getColumn() == j) {
           setHorz = false;
         }
-      }
+       
+       
+      } 
+     
       if (setHorz) {
         walls.add(new Wall(PIPE_LENGTH * i, PIPE_LENGTH * j + offset, PIPE_WIDTH, PIPE_LENGTH));
       }
