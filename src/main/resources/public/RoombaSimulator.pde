@@ -100,9 +100,7 @@ void setMaze() {
       }
 
       for (Path p : horizontalPaths) {
-       if (p.getColumn() == 6) {
-          setHorz = false;
-        }
+     
         if (p.getRow() == i && p.getColumn() == j) {
           setHorz = false;
         }
