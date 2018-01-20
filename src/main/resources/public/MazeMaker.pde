@@ -3,13 +3,13 @@ public class MazeMaker {
   private Stack<Cell> uncheckedCells = new Stack<Cell>();
 
   void createMaze() { 
-    maze = new Cell[GRID_SIZE][GRID_SIZE];
-    for (int i = 0; i < GRID_SIZE; i++) {
-      for (int j = 0; j < GRID_SIZE; j++) {
+    maze = new Cell[GRID_HEIGHT][GRID_WIDTH];
+    for (int i = 0; i < GRID_HEIGHT; i++) {
+      for (int j = 0; j < GRID_WIDTH; j++) {
         maze[i][j] = new Cell(i, j);
       }
     }
-    selectNextPath(maze[(int) random(GRID_SIZE)][(int) random(GRID_SIZE)]);
+    selectNextPath(maze[(int) random(GRID_HEIGHT)][(int) random(GRID_WIDTH)]);
   }
 
 
@@ -43,7 +43,7 @@ private ArrayList<Cell> getUnvisitedNeighbors(Cell c) {
   int col = c.getColumn();
   int row = c.getRow();
 
-  if (col < GRID_SIZE - 1) {
+  if (col < GRID_WIDTH - 1) {
     if (!(maze[row][col + 1].hasBeenVisited()))
       unvisitedCells.add(maze[row][col + 1]);
   }
@@ -51,7 +51,7 @@ private ArrayList<Cell> getUnvisitedNeighbors(Cell c) {
     if (!(maze[row][col - 1].hasBeenVisited()))
       unvisitedCells.add(maze[row][col - 1]);
   }
-  if (row < GRID_SIZE - 1) {
+  if (row < GRID_HEIGHT - 1) {
     if (!(maze[row + 1][col].hasBeenVisited()))
       unvisitedCells.add(maze[row + 1][col]);
   }
@@ -65,7 +65,7 @@ private ArrayList<Cell> getUnvisitedNeighbors(Cell c) {
 private void removeWalls(Cell a, Cell b) {
   int row = a.getRow();
   int col = a.getColumn();
-  if (col < GRID_SIZE - 1) {
+  if (col < GRID_WIDTH - 1) {
     if (maze[row][col + 1] == b) {
       horizontalPaths.add(new Path(col + 1, row));
     }
@@ -75,7 +75,7 @@ private void removeWalls(Cell a, Cell b) {
       horizontalPaths.add(new Path(col, row));
     }
   }
-  if (row < GRID_SIZE - 1) {
+  if (row < GRID_HEIGHT- 1) {
     if (maze[row + 1][col] == b) {
       verticalPaths.add(new Path(col, row + 1));
     }
@@ -85,6 +85,14 @@ private void removeWalls(Cell a, Cell b) {
       verticalPaths.add(new Path(col, row));
     }
   }
+}
+public ArrayList<Cell> getCellArrayList(){
+   ArrayList<Cell> cells = new ArrayList<Cell>();
+   for(Cell[] row: maze) {
+     for(Cell i: row)
+       cells.add(i);
+   }
+   return cells;
 }
 
 }
