@@ -1,7 +1,8 @@
-public static int GRID_SIZE_VERTICAL = 12;
-public static int GRID_SIZE_HORIZONTAL = 6;
-public static final int SCREEN_SIZE = 823;
-public static int PIPE_LENGTH = SCREEN_SIZE / GRID_SIZE_VERTICAL;
+public static int GRID_HEIGHT = 12;
+public static int GRID_WIDTH = 6;
+public static final int SCREEN_HEIGHT = 823;
+public static final int SCREEN_WIDTH = 412;
+public static int PIPE_LENGTH = max(SCREEN_HEIGHT, SCREEN_WIDTH) / max(GRID_HEIGHT, GRID_WIDTH);
 public static int PIPE_WIDTH = 4;
 private ArrayList<Path> verticalPaths = new ArrayList<Path>();
 private ArrayList<Path> horizontalPaths = new ArrayList<Path>();
@@ -46,7 +47,7 @@ void draw() {
 void generateRandomMaze() {
 	MazeMaker maker = new MazeMaker();
   	maker.createMaze();
-  	p.setMaze();
+  	setMaze();
 }	
 
 void addVerticalPath(int x, int y)
@@ -80,8 +81,8 @@ getRoomba().driveDirect(left, right);
 }
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
-  for (int i = 0; i < GRID_SIZE_HORIZONTAL+1 ; i++) {
-    for (int j = 0; j < GRID_SIZE_VERTICAL+1 ; j++) {
+  for (int i = 0; i < GRID_WIDTH+1 ; i++) {
+    for (int j = 0; j < GRID_HEIGHT+1 ; j++) {
 
 
       boolean setVert = true;
