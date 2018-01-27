@@ -45,10 +45,10 @@ class Roomba {
 
     stroke(0);
     strokeWeight(1.5);
-    fill(255);
+    fill(255, 100);
     rectMode(CORNER);
-    rect(15, 5, 480, 20);
-    fill(255, 0, 0);
+    rect(15, 5, 360, 40);
+    fill(255, 0, 0, 100);
     text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
     text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
     text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20);
@@ -95,7 +95,7 @@ class Roomba {
       } else {
         a = (speed/r) * 9.56;
       } 
-      println(r + " " +a + " " +speed);
+      //println(r + " " +a + " " +speed);
       y1 = (float) (Math.cos(angle) * speed);
       x1 = (float) (Math.sin(angle) * speed);
     }

@@ -40,10 +40,11 @@ void draw() {
     end = millis();
   }
 
+  
   if (start != 0) {
-    //text("Time: " + (int)((end - start)/60000) + ":" + nf(((end - start)/1000.0)%60, 2, 2), 400, 20);
+  	text("Time: " + (int)((end - start)/60000) + ":" + nf(((end - start)/1000.0)%60, 2, 2), 20, 40);
   } else {
-    text("Time: 0:00.00", 400, 20);
+  	text("Time: 0:00.00", 20, 40);
   }
 }
 
@@ -53,35 +54,30 @@ void generateRandomMaze() {
   setMaze();
 }	
 
-void addVerticalPath(int x, int y)
-{
-  verticalPaths.add(new Path(x, y));
+void addVerticalPath(int x, int y) {
+  verticalPaths.add(new Path(x, y)); 
 }
 
-void addHorizontalPath(int x, int y)
-{
+void addHorizontalPath(int x, int y) {
   horizontalPaths.add(new Path(x, y));
 }
 
-void startingPointLocations(int x, int y, float angle)
-{
+void startingPointLocations(int x, int y, float angle) {
   roomba = new Roomba("r1", x, y, PIPE_LENGTH * 0.2407, angle);
 }
 
-void finishingPointLocation(int x, int y)
-{
+void finishingPointLocation(int x, int y) {
   endZone = new EndZone(x, y, 10);
 }
 
-Roomba getRoomba()
-{
+Roomba getRoomba() {
   return roomba;
 }
-void driveDirect(int left, int right)
-{
-  println("hi");
+
+void driveDirect(int left, int right) {
   getRoomba().driveDirect(left, right);
 }
+
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_WIDTH+1; i++) {
