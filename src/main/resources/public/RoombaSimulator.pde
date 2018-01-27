@@ -15,19 +15,22 @@ private double end = 0;
 
 void setup() {
   size(412, 823);
+
   processingLoaded();
   //driveDirect(.1,.1);
- // roomba = new Roomba("r1", 510, 420, PIPE_LENGTH * 0.2407);
+  //roomba = new Roomba("r1", 300, 300, PIPE_LENGTH * 0.2407, 0);
   //endZone = new EndZone(510, 100, 10);
 }
 
-void resetTimer(){
-	start = millis();
+void resetTimer() {
+  start = millis();
 }
 
 
 void draw() {
   background(255);
+
+  
   drawMaze();
   roomba.display();
   endZone.display();
@@ -36,79 +39,75 @@ void draw() {
   if (!roomba.bump) {
     end = millis();
   }
-  
-  if (start != 0){
-  	text("Time: " + (int)((end - start)/60000) + ":" + nf(((end - start)/1000.0)%60, 2, 2), 400, 20);
-  }else{
-  	text("Time: 0:00.00", 400, 20);
+
+  if (start != 0) {
+    //text("Time: " + (int)((end - start)/60000) + ":" + nf(((end - start)/1000.0)%60, 2, 2), 400, 20);
+  } else {
+    text("Time: 0:00.00", 400, 20);
   }
 }
 
 void generateRandomMaze() {
-	MazeMaker maker = new MazeMaker();
-  	maker.createMaze();
-  	setMaze();
+  MazeMaker maker = new MazeMaker();
+  maker.createMaze();
+  setMaze();
 }	
 
 void addVerticalPath(int x, int y)
 {
-	verticalPaths.add(new Path(x, y));
+  verticalPaths.add(new Path(x, y));
 }
 
 void addHorizontalPath(int x, int y)
 {
-	horizontalPaths.add(new Path(x, y));
+  horizontalPaths.add(new Path(x, y));
 }
 
 void startingPointLocations(int x, int y, float angle)
 {
-	roomba = new Roomba("r1", x, y, PIPE_LENGTH * 0.2407, angle);
+  roomba = new Roomba("r1", x, y, PIPE_LENGTH * 0.2407, angle);
 }
 
 void finishingPointLocation(int x, int y)
 {
-	endZone = new EndZone(x, y, 10);
+  endZone = new EndZone(x, y, 10);
 }
 
 Roomba getRoomba()
 {
-	return roomba;
+  return roomba;
 }
-void driveDirect(float left, float right)
+void driveDirect(int left, int right)
 {
-println("hi");
-getRoomba().driveDirect(left, right);
+  println("hi");
+  getRoomba().driveDirect(left, right);
 }
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
-  for (int i = 0; i < GRID_WIDTH+1 ; i++) {
-    for (int j = 0; j < GRID_HEIGHT+1 ; j++) {
+  for (int i = 0; i < GRID_WIDTH+1; i++) {
+    for (int j = 0; j < GRID_HEIGHT+1; j++) {
 
 
       boolean setVert = true;
       boolean setHorz = true;
       for (Path p : verticalPaths) { 
- 
+
         if (p.getRow() == i && p.getColumn() == j) {
           setVert = false;
-        } 
-        
-        
+        }
       }
-     
+
       if (setVert) {
         walls.add(new Wall(PIPE_LENGTH * i + offset, PIPE_LENGTH * j, PIPE_LENGTH, PIPE_WIDTH));
       }
 
       for (Path p : horizontalPaths) {
-     
+
         if (p.getRow() == i && p.getColumn() == j) {
           setHorz = false;
         }
-       
-       
       } 
-     
+
       if (setHorz) {
         walls.add(new Wall(PIPE_LENGTH * i, PIPE_LENGTH * j + offset, PIPE_WIDTH, PIPE_LENGTH));
       }
