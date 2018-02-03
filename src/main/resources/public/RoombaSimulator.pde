@@ -49,9 +49,12 @@ void draw() {
 }
 
 void generateRandomMaze() {
+
+
   MazeMaker maker = new MazeMaker();
   maker.createMaze();
   setMaze();
+
 }	
 
 void addVerticalPath(int x, int y) {
@@ -82,6 +85,7 @@ void setMaze() {
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_WIDTH+1; i++) {
     for (int j = 0; j < GRID_HEIGHT+1; j++) {
+
 
 
       boolean setVert = true;
