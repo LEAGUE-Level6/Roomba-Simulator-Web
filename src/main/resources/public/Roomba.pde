@@ -57,7 +57,14 @@ class Roomba {
   public float getRadius() {
     return radius;
   }
-
+  
+   public float getX() {
+    return x;
+  }
+  public float getY() {
+    return y;
+  }
+  
   public void driveDirect(int left, int right) {
     if (left > 500)
       left = 500;

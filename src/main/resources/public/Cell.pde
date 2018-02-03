@@ -10,11 +10,11 @@ class Cell {
   }
   
   public int getCenterX() {
-    return (PIPE_LENGTH * col) - PIPE_LENGTH/2;
+    return (PIPE_LENGTH * (col + 1)) - PIPE_LENGTH/2;
   }
   
   public int getCenterY() {
-    return (PIPE_LENGTH * row) - PIPE_LENGTH/2;
+    return (PIPE_LENGTH * (row + 1)) - PIPE_LENGTH/2;
   }
   
   public int getRow() {
