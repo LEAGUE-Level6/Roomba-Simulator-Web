@@ -29,7 +29,7 @@ class Roomba {
     drawingRadius = definition * radius;
     scaleFactor = 1/definition;
   }
-  
+
   public void update() {
     checkCollision();
     //drive(0, 0);
@@ -37,22 +37,21 @@ class Roomba {
       drive(preSpeed/55.9, drivingRadius);
 
 
-    while(angle > 2*PI)
+    while (angle > 2*PI)
       angle-=2*PI;
-      
-    while(angle < -2*PI)
+
+    while (angle < -2*PI)
       angle+=2*PI;
 
     stroke(0);
     strokeWeight(1.5);
-    fill(255);
+    fill(255, 100);
     rectMode(CORNER);
-    rect(15, 5, 480, 20);
-    fill(255, 0, 0);
+    rect(15, 5, 360, 40);
+    fill(255, 0, 0, 100);
     text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
     text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
-    text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20); 
-    
+    text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20);
   }
 
   public float getRadius() {
@@ -68,16 +67,16 @@ class Roomba {
       right = 500;
     if (left < -500)
       left = -500;
-    
-    preSpeed = ((float) left  + (float) right) / ((width + height)/2 / (GRID_SIZE * 2.0f));
+
+    preSpeed = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
     float ratio = ((float) left  / (float) right);
     drivingRadius = ((ratio+1) * (0.74*radius))/(ratio - 1);
-    
-    
-    if(left == -right) {
+
+
+    if (left == -right) {
       preSpeed = abs(left);
-      
-      if(left > right) 
+
+      if (left > right) 
         drivingRadius = CLOCKWISE;
       else
         drivingRadius = COUNTER_CLOCKWISE;
@@ -89,27 +88,24 @@ class Roomba {
     float a = 0;  
     float y1 = 0;
     float x1 = 0;
-    
-    if(r != CLOCKWISE && r != COUNTER_CLOCKWISE) {
-    if(r == 0)
-    {
-  	  a==0;
+
+    if (r != CLOCKWISE && r != COUNTER_CLOCKWISE) {
+      if (r == 0) {
+        a = 0;
+      } else {
+        a = (speed/r) * 9.56;
+      } 
+      //println(r + " " +a + " " +speed);
+      y1 = (float) (Math.cos(angle) * speed);
+      x1 = (float) (Math.sin(angle) * speed);
     }
-    else
-    {
-   	 a = (speed/r) * 9.56;  
-    } 
-    println(r + " " +a + " " +speed);
-    y1 = (float) (Math.cos(angle) * speed);
-    x1 = (float) (Math.sin(angle) * speed);
-    }
-    
-    if(r == CLOCKWISE)
+
+    if (r == CLOCKWISE)
       a = speed/50;
     else if (r == COUNTER_CLOCKWISE)
       a = -speed/50;
-    
-    
+
+
     setLinearVelocity(new PVector(x1, y1));
     setAngularVelocity(a);
     angle += angularVelocity;
@@ -188,7 +184,7 @@ class Roomba {
 
     if (sensorPosition == CENTER) {
       ySpeed = tan(angleCalc - PI/2);
-      
+
       if (abs(angleCalc) > PI) {
         ySpeed = -ySpeed;
         xSpeed = -xSpeed;
@@ -215,13 +211,13 @@ class Roomba {
       ySpeed = tan(angleCalc);
       ySpeed = -ySpeed;
       xSpeed = -xSpeed;
-      
+
       if (angleCalc == 0) {
         ySpeed = 0;
         xSpeed = -1;
       }
     }
-    
+
     if (sensorPosition == LEFT || sensorPosition == RIGHT) {
       if (abs(angleCalc) > PI/2) {
         ySpeed = -ySpeed;
@@ -233,7 +229,7 @@ class Roomba {
         xSpeed = -xSpeed;
       }
     }
-    
+
     while (abs(ySpeed) > 1) {
       ySpeed *= 0.5;
       xSpeed *= 0.5;
@@ -243,8 +239,8 @@ class Roomba {
     //ySpeed = -ySpeed;
     //xSpeed = -xSpeed; 
     //}
-    
-    
+
+
     Entity testEntity = new Entity();
     for (int i = 0; i < width + height; i++) {
       if (testEntity.checkCollision(beamX, beamY) != null|| beamX >= width || beamX <= 0 || beamY <= 0 || beamY >= height) {

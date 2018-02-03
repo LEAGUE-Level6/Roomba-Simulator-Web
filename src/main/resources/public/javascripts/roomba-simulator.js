@@ -15,62 +15,60 @@ function onProcessingLoad(simulatorInitialization) {
 }
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
-	$scope.code = 
-	'void setup() \n' +
-	'{ \n' +
-	'   println("userSetup()"); \n' +
-	'} \n' +
-	'void roboLoop() \n' +
-	'{ \n' +
-	'  println("roboLoop()"); \n'+
-	'  driveDirect(500,500); \n'+
-	'}'; 
-	loadCode();
-	
 	var startCoord;
 	var orientation;
 	var pathName = $window.location.pathname;
 	var maze = pathName.substring(pathName.lastIndexOf('/'));
+	$http({
+		method: 'GET',
+		url: '/codes' + maze + '.pde',
+		transformResponse: [function (data) {
+			return data;
+		}]
+	}).then(
+		function successCallback(response) {
+			$scope.code = response.data;
+			loadCode();
+		},
+		function errorCallback(response){
+			
+		}
+	);
 	if (maze === '/levelRandom') {
 		onProcessingLoad(function(p) {
 			p.generateRandomMaze();
 		});
 	} else {
 		$http({
-			method : 'GET',
-			url : '/mazes' + maze + '.json'
+			method: 'GET',
+			url: '/mazes' + maze + '.json'
 		}).then(
-				function successCallback(response) {
-					onProcessingLoad(function(p) {
-						console.log(angular.toJson(response.data));
-						var hPaths = response.data.horizontalPaths;
-						var vPaths = response.data.verticalPaths;
-						startCoord = response.data.start.coord;
-						orientation = response.data.start.orientation;
-						var finishCoord = response.data.finishCoord;
-
-						for (var i = 0; i < hPaths.length; i++) {
-							p.addHorizontalPath(hPaths[i].x, hPaths[i].y);
-						}
-						for (var j = 0; j < vPaths.length; j++) {
-							p.addVerticalPath(vPaths[j].x, vPaths[j].y);
-						}
-						p.startingPointLocations(startCoord.x, startCoord.y,
-								orientation);
-						p.finishingPointLocation(finishCoord.x, finishCoord.y);
-						p.setMaze();
-					});
-
-					// this callback will be called asynchronously
-					// when the response is available
-				}, function errorCallback(response) {
-					var p = Processing.getInstanceById('sketch');
-
-					console.log(response.status);
-					console.log(JSON.stringify(response));
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
+			function successCallback(response) {
+				onProcessingLoad(function(p) {
+					var hPaths = response.data.horizontalPaths;
+					var vPaths = response.data.verticalPaths;
+					startCoord = response.data.start.coord;
+					orientation = response.data.start.orientation;
+					var finishCoord = response.data.finishCoord;
+					
+					for (var i = 0; i < hPaths.length; i++) {
+						p.addHorizontalPath(hPaths[i].x, hPaths[i].y);
+					}
+					for (var j = 0; j < vPaths.length; j++) {
+						p.addVerticalPath(vPaths[j].x, vPaths[j].y);
+					}
+					p.startingPointLocations(startCoord.x, startCoord.y,
+							orientation);
+					p.finishingPointLocation(finishCoord.x, finishCoord.y);
+					p.setMaze();
 				});
+			},
+			function errorCallback(response) {
+				var p = Processing.getInstanceById('sketch');
+
+				console.log(response.status);
+				console.log(JSON.stringify(response));
+			});
 	}
 
 	$scope.editorOptions = {
@@ -93,7 +91,6 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		{
 			$scope.code = code
 		}
-		console.log($scope.code);
 		
 	}
 
