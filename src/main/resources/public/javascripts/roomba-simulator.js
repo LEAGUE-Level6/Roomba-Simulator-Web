@@ -1,5 +1,5 @@
 var roombaSim = angular.module('roombaSimApp', [ 'ui.codemirror' ]);
-
+var templateCode; 
 function processingLoaded() {
 	var p = Processing.getInstanceById('sketch');
 	if (typeof (simulatorInit) === 'function') {
@@ -27,6 +27,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		}]
 	}).then(
 		function successCallback(response) {
+			templateCode= response.data;
 			$scope.code = response.data;
 			loadCode();
 		},
@@ -89,12 +90,15 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		var code = $window.localStorage.getItem($window.location.pathname);
 		if (code!=null)
 		{
-			$scope.code = code
+			$scope.code = code;
 		}
 		
 	}
 
-	
+	$scope.reset = function()
+	{
+		$scope.code = templateCode;
+	}
 
 	
 	$scope.SaveAndRun = function() {
