@@ -37,7 +37,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	);
 	if (maze === '/levelRandom') {
 		onProcessingLoad(function(p) {
-			p.generateRandomMaze();
+			p.setupRandomLevel();
 		});
 	} else {
 		$http({

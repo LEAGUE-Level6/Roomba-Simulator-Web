@@ -9,6 +9,7 @@ private ArrayList<Path> horizontalPaths = new ArrayList<Path>();
 private ArrayList<Wall> walls = new ArrayList<Wall>();
 public Roomba roomba;
 public EndZone endZone;
+public MazeMaker maker;
 public float inc;
 private double start = 0;
 private double end = 0;
@@ -38,6 +39,7 @@ void draw() {
   roomba.update();
   if (!roomba.bump) {
     end = millis();
+
   }
 
   
@@ -49,13 +51,21 @@ void draw() {
 }
 
 void generateRandomMaze() {
-
-
-  MazeMaker maker = new MazeMaker();
+  maker = new MazeMaker();
   maker.createMaze();
   setMaze();
+}
 
-}	
+void setupRandomLevel(){
+  generateRandomMaze();
+  Cell roombaCell = maker.getCellArrayList().get((int) random(maker.getCellArrayList().size()));
+  Cell endCell = maker.getCellArrayList().get((int) random(maker.getCellArrayList().size()));
+  while(sqrt(sq(roombaCell.getCenterX() - endCell.getCenterX()) + sq(roombaCell.getCenterY() - endCell.getCenterY())) < 200) 
+   endCell = maker.getCellArrayList().get((int) random(maker.getCellArrayList().size() - 2) + 1);
+  
+  roomba = new Roomba("r1", roombaCell.getCenterX(), roombaCell.getCenterY(), PIPE_LENGTH * 0.2407, int(random(4)) * (PI/2));
+  endZone = new EndZone(endCell.getCenterX(), endCell.getCenterY(), 10);
+}
 
 void addVerticalPath(int x, int y) {
   verticalPaths.add(new Path(x, y)); 
