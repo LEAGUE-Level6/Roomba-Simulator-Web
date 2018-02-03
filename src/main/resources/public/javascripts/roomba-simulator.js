@@ -72,6 +72,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	}
 
 	$scope.editorOptions = {
+		indentUnit : 4,
 		lineWrapping : true,
 		lineNumbers : true,
 		matchBrackets : true,
