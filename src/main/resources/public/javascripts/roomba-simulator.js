@@ -100,7 +100,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 
 	
-	$scope.runSimulation = function() {
+	$scope.SaveAndRun = function() {
 	    saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
