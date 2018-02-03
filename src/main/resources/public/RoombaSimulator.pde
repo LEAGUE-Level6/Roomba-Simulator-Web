@@ -97,6 +97,7 @@ void setMaze() {
     for (int j = 0; j < GRID_HEIGHT+1; j++) {
 
 
+
       boolean setVert = true;
       boolean setHorz = true;
       for (Path p : verticalPaths) { 

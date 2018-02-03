@@ -301,8 +301,13 @@ class Roomba {
     Entity testEntity = new Entity();
     if (testEntity.checkCollision(x + wideRadius, y) != null || testEntity.checkCollision(x - wideRadius, y) != null  || testEntity.checkCollision(x, y + wideRadius)  != null || testEntity.checkCollision(x, y - wideRadius)  != null /* || x + wideRadius >= width || x - wideRadius <= 0  || y + wideRadius >= height */ || y - wideRadius <= 0 ) {
       setBump(true);
-      //if(testEntity.getCollided().getId().equals("endzone")) {
-      //}
+      if(testEntity.getCollided().getId().equals("endzone")) {
+        fill(#006600)
+        text("Congratulations, maze completed!", 100, 100);
+      } else {
+      	fill(#BB0000)
+        text("Sorry, you lose. Study harder and try again. ", 100,100)
+      }
     } else {
       setBump(false);
     }
