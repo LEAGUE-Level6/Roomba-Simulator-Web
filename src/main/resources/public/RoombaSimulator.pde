@@ -49,15 +49,12 @@ void draw() {
 }
 
 void generateRandomMaze() {
-<<<<<<< HEAD
-	MazeMaker maker = new MazeMaker();
-  	maker.createMaze();
-  	p.setMaze();
-=======
+
+
   MazeMaker maker = new MazeMaker();
   maker.createMaze();
   setMaze();
->>>>>>> c4f534adb742e9453293a60b4e5077dcdb8799fe
+
 }	
 
 void addVerticalPath(int x, int y) {
@@ -86,13 +83,9 @@ void driveDirect(int left, int right) {
 
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
-<<<<<<< HEAD
-  for (int i = 0; i < GRID_SIZE_HORIZONTAL+1 ; i++) {
-    for (int j = 0; j < GRID_SIZE_VERTICAL+1 ; j++) {
-=======
   for (int i = 0; i < GRID_WIDTH+1; i++) {
     for (int j = 0; j < GRID_HEIGHT+1; j++) {
->>>>>>> c4f534adb742e9453293a60b4e5077dcdb8799fe
+
 
 
       boolean setVert = true;
