@@ -18,6 +18,14 @@ function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
 
+async function runSimulation(p){
+	await p.setup();
+	while(true){
+		await delay(10);
+		await p.roboLoop();
+	}
+}
+
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
 	var orientation;
@@ -106,7 +114,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	}
 
 	
-	$scope.SaveAndRun = function() {
+	$scope.saveAndRun = function() {
 	    saveCode();
 		var processingCode = $scope.code;
 		var jsCode = Processing.compile(processingCode).sourceCode;
@@ -133,12 +141,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 
 		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 
-		p.setup();
-		p.draw = function() {
-			p.simulationDraw();
-			p.roboLoop();
-		}
-
+		runSimulation(p);
+		
 		console.log();
 
 	};
