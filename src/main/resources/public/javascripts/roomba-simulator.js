@@ -104,6 +104,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		if (code!=null)
 		{
 			$scope.code = code;
+			
 		}
 		
 	}
@@ -111,12 +112,14 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	$scope.reset = function()
 	{
 		$scope.code = templateCode;
+		$window.localStorage.setItem($window.location.pathname, $scope.code);
+
 	}
 
 	
 	$scope.saveAndRun = function() {
 	    saveCode();
-		var processingCode = $scope.code;
+		var processingCode = templateCode;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		jsCode = jsCode.
 			replace(/\$p\.delay/g, 'await delay').
@@ -125,6 +128,11 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		console.log(jsCode);
 		var func = eval(jsCode);
 		var p = Processing.getInstanceById('sketch');
+		try {
+			var func = eval(jsCode);
+		} catch (err) {
+			p.println(err);
+		}
 
 		// using a dedicated method to call draw in processing then using that
 		// method in java script
@@ -135,8 +143,12 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 			p.simulationDraw = p.draw;
 		}
 
+		
 		func(p);
-
+	
+		
+		
+		
 		p.resetTimer();
 
 		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
