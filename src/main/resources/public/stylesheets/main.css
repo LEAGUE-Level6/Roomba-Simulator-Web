@@ -38,3 +38,8 @@
     right: 2px;
     width: 415px;
 }
+
+.CodeMirror{
+	    height: 100% !important;
+}
+}

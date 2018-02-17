@@ -14,6 +14,10 @@ function onProcessingLoad(simulatorInitialization) {
 		simulatorInit = simulatorInitialization;
 }
 
+function delay(millis){
+	return new Promise(resolve => setTimeout(resolve, millis));
+}
+
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
 	var orientation;
@@ -92,6 +96,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		if (code!=null)
 		{
 			$scope.code = code;
+			
 		}
 		
 	}
@@ -99,14 +104,21 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	$scope.reset = function()
 	{
 		$scope.code = templateCode;
+		$window.localStorage.setItem($window.location.pathname, $scope.code);
+
 	}
 
 	
 	$scope.SaveAndRun = function() {
 	    saveCode();
-	    
-		var processingCode = $scope.code;
+		var processingCode = templateCode;
 		var jsCode = Processing.compile(processingCode).sourceCode;
+		jsCode = jsCode.
+			replace(/\$p\.delay/g, 'await delay').
+			replace('function setup', 'async function setup').
+			replace('function roboLoop', 'async function roboLoop');
+		console.log(jsCode);
+		var func = eval(jsCode);
 		var p = Processing.getInstanceById('sketch');
 		try {
 			var func = eval(jsCode);
@@ -135,8 +147,6 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 			p.roboLoop();
 		}
 
-		console.log(p.draw);
-		console.log(jsCode);
 		console.log();
 
 	};
