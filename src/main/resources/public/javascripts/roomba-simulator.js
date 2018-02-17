@@ -92,6 +92,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		if (code!=null)
 		{
 			$scope.code = code;
+			
 		}
 		
 	}
@@ -99,12 +100,14 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	$scope.reset = function()
 	{
 		$scope.code = templateCode;
+		$window.localStorage.setItem($window.location.pathname, $scope.code);
+
 	}
 
 	
 	$scope.SaveAndRun = function() {
 	    saveCode();
-		var processingCode = $scope.code;
+		var processingCode = templateCode;
 		var jsCode = Processing.compile(processingCode).sourceCode;
 		var func = eval(jsCode);
 		var p = Processing.getInstanceById('sketch');
