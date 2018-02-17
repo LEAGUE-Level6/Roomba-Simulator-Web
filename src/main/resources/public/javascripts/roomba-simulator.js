@@ -120,6 +120,11 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		console.log(jsCode);
 		var func = eval(jsCode);
 		var p = Processing.getInstanceById('sketch');
+		try {
+			var func = eval(jsCode);
+		} catch (err) {
+			p.println(err);
+		}
 
 		// using a dedicated method to call draw in processing then using that
 		// method in java script
