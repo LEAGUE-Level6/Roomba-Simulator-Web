@@ -130,8 +130,12 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 			p.simulationDraw = p.draw;
 		}
 
+		
 		func(p);
-
+	
+		
+		
+		
 		p.resetTimer();
 
 		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
