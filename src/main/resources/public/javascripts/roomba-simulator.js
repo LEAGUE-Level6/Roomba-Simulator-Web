@@ -21,7 +21,7 @@ function delay(millis){
 async function runSimulation(p){
 	await p.setup();
 	while(true){
-		await delay(10);
+		await delay(50);
 		await p.roboLoop();
 	}
 }
@@ -94,7 +94,6 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 	function saveCode()
 	{
-		console.log($scope.code);
 		$window.localStorage.setItem($window.location.pathname, $scope.code);
 		
 	}
@@ -113,49 +112,32 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	{
 		$scope.code = templateCode;
 		$window.localStorage.setItem($window.location.pathname, $scope.code);
-
 	}
 
 	
 	$scope.saveAndRun = function() {
-	    saveCode();
-		var processingCode = templateCode;
-		var jsCode = Processing.compile(processingCode).sourceCode;
-		jsCode = jsCode.
-			replace(/\$p\.delay/g, 'await delay').
-			replace('function setup', 'async function setup').
-			replace('function roboLoop', 'async function roboLoop');
-		console.log(jsCode);
-		var func = eval(jsCode);
+		saveCode();
 		var p = Processing.getInstanceById('sketch');
+		driveDirect = p.driveDirect;
 		try {
-			var func = eval(jsCode);
+			var jsCode = Processing.
+				compile($scope.code).sourceCode.
+				replace(/\$p\.delay/g, 'await delay').
+				replace('function setup', 'async function setup').
+				replace('function roboLoop', 'async function roboLoop');
+			console.log(jsCode);
+
+			var applyUserCode = eval(jsCode);
+
+			applyUserCode(p);
+
+			p.resetTimer();
+
+			p.startingPointLocations(startCoord.x, startCoord.y, orientation);
+
+			runSimulation(p);
 		} catch (err) {
 			p.println(err);
 		}
-
-		// using a dedicated method to call draw in processing then using that
-		// method in java script
-
-		driveDirect = p.driveDirect;
-
-		if (!p.simulationDraw) {
-			p.simulationDraw = p.draw;
-		}
-
-		
-		func(p);
-	
-		
-		
-		
-		p.resetTimer();
-
-		p.startingPointLocations(startCoord.x, startCoord.y, orientation);
-
-		runSimulation(p);
-		
-		console.log();
-
 	};
 });
