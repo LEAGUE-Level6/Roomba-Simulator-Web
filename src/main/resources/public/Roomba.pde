@@ -183,69 +183,24 @@ class Roomba {
   }
 
   public float getUltrasonicDistance(int sensorPosition) {
-    float ySpeed = 1;
-    float xSpeed = 1;
     float beamX = x;
     float beamY = y;
     float angleCalc = angle;
 
     if (sensorPosition == CENTER) {
-      ySpeed = tan(angleCalc - PI/2);
-
-      if (abs(angleCalc) > PI) {
-        ySpeed = -ySpeed;
-        xSpeed = -xSpeed;
-      }
-      if (angleCalc < 0) {
-        ySpeed = -ySpeed;
-        xSpeed = -xSpeed;
-      }
-      if (angleCalc == 0) {
-        ySpeed = -1;
-        xSpeed = 0;
-      }
-      if (abs(angleCalc) == PI) {
-        ySpeed = 1;
-        xSpeed = 0;
-      }
+      xSpeed = cos(angleCalc - PI/2);
+      ySpeed = sin(angleCalc - PI/2);
     }
 
     if (sensorPosition == RIGHT) {
-      ySpeed = tan(angleCalc);
+      xSpeed = cos(angleCalc);
+      ySpeed = sin(angleCalc);
     }
 
     if (sensorPosition == LEFT) {
-      ySpeed = tan(angleCalc);
-      ySpeed = -ySpeed;
-      xSpeed = -xSpeed;
-
-      if (angleCalc == 0) {
-        ySpeed = 0;
-        xSpeed = -1;
-      }
+      xSpeed = cos(angleCalc + PI);
+      ySpeed = sin(angleCalc + PI);
     }
-
-    if (sensorPosition == LEFT || sensorPosition == RIGHT) {
-      if (abs(angleCalc) > PI/2) {
-        ySpeed = -ySpeed;
-        xSpeed = -xSpeed;
-      }
-
-      if (abs(angleCalc) > 1.5 * PI) {
-        ySpeed = -ySpeed;
-        xSpeed = -xSpeed;
-      }
-    }
-
-    while (abs(ySpeed) > 1) {
-      ySpeed *= 0.5;
-      xSpeed *= 0.5;
-    }
-
-    //if(abs(angleCalc) == PI) {
-    //ySpeed = -ySpeed;
-    //xSpeed = -xSpeed; 
-    //}
 
 
     Entity testEntity = new Entity();
@@ -256,8 +211,8 @@ class Roomba {
 
       beamX += xSpeed;
       beamY += ySpeed;
-      //fill(0, 255, 0);
-      //ellipse(beamX, beamY, 1, 1);
+      fill(0, 255, 0);
+      ellipse(beamX, beamY, 1, 1);
     }
 
     return -1;
