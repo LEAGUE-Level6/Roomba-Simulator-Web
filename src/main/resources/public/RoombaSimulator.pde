@@ -39,7 +39,6 @@ void draw() {
   roomba.update();
   if (!roomba.bump) {
     end = millis();
-
   }
 
   
@@ -53,7 +52,6 @@ void draw() {
 void generateRandomMaze() {
   maker = new MazeMaker();
   maker.createMaze();
-  setMaze();
 }
 
 void setupRandomLevel(){
@@ -125,7 +123,22 @@ void setMaze() {
   }
 }
 
+void clearWalls() {
+  for (int i = walls.size() - 1; i >= 0; i--) {
+    walls.get(i).getBody().deleteBody();
+  }
+  walls.clear();
+}
+
 void drawMaze() {
+  if (maker != null) {
+      int index = (int) min(millis()/50, maker.getMazeSteps().size() - 1);
+      horizontalPaths = maker.getMazeSteps().get(index).getHorizontalPaths();
+      verticalPaths = maker.getMazeSteps().get(index).getVerticalPaths();
+      clearWalls();
+      setMaze();
+  }
+
   for (int i = walls.size() - 1; i >= 0; i--) {
     walls.get(i).display();
   }

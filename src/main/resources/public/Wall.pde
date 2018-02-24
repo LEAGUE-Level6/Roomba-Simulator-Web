@@ -16,4 +16,7 @@ class Wall {
     rectMode(CENTER);
     rect(x, y, width, height);
   }
+  public Entity getBody() {
+    return body;
+  }
 }

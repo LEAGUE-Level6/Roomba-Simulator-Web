@@ -103,4 +103,9 @@ class Entity {
   public Entity getCollided() {
     return collidedWith;
   }
+  
+  public void deleteBody() {
+    entities.remove(this);
+  }
+  
 }
