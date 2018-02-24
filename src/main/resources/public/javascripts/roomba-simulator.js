@@ -19,10 +19,14 @@ function delay(millis){
 }
 
 async function runSimulation(p){
-	await p.setup();
-	while(true){
-		await delay(50);
-		await p.roboLoop();
+	try {
+		await p.setup();
+		while(true) {
+			await delay(50);
+			await p.roboLoop();
+		}
+	} catch (err) {
+		p.println(err);
 	}
 }
 
