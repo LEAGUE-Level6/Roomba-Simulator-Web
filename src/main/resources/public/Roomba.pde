@@ -211,8 +211,8 @@ class Roomba {
 
       beamX += xSpeed;
       beamY += ySpeed;
-      fill(0, 255, 0);
-      ellipse(beamX, beamY, 1, 1);
+      //fill(0, 255, 0);
+      //ellipse(beamX, beamY, 1, 1);
     }
 
     return -1;

@@ -35,7 +35,6 @@ void draw() {
   drawMaze();
   roomba.display();
   endZone.display();
-  roomba.driveDirect(-500, 500);
   //drawCircle(100,100,frameCount);
   roomba.update();
   if (!roomba.bump) {
