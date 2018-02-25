@@ -93,6 +93,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		lineWrapping : true,
 		lineNumbers : true,
 		matchBrackets : true,
+		viewportMargin: Infinity,
 		mode : 'text/x-java'
 	};
 	
