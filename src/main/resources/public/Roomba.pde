@@ -57,8 +57,19 @@ class Roomba {
   public float getRadius() {
     return radius;
   }
+  public float getXVPMS(){
+	return linearVelocity.x * (60/1000);
+  }
   
-   public float getX() {
+  public float getYVPMS(){
+	return linearVelocity.y * (60/1000);
+  }
+  
+  public float getAngularVPMS(){
+	return angularVelocity * (60/1000);
+  }
+  
+  public float getX() {
     return x;
   }
   public float getY() {
