@@ -124,6 +124,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		saveCode();
 		var p = Processing.getInstanceById('sketch');
 		driveDirect = p.driveDirect;
+		drive = p.drive;
+		getUltrasonicDistance = p.getUltrasonicDistance;
 		try {
 			var jsCode = Processing.
 				compile($scope.code).sourceCode.

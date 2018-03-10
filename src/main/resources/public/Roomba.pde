@@ -12,7 +12,7 @@ class Roomba {
   private boolean bump;
   private float angularVelocity;
   private PVector linearVelocity = new PVector(0, 0);
-  private float preSpeed;
+  private float speed;
   private float drivingRadius;
   private float angle = 0;
   final float CLOCKWISE= 0xFFFF;
@@ -31,11 +31,13 @@ class Roomba {
   }
 
   public void update() {
+  	if (!bump) {
+  	  angle += angularVelocity;
+      x += linearVelocity.x;
+      y += linearVelocity.y;
+    }
+    
     checkCollision();
-    //drive(0, 0);
-    if (!bump)
-      drive(preSpeed/55.9, drivingRadius);
-
 
     while (angle > 2*PI)
       angle-=2*PI;
@@ -86,26 +88,28 @@ class Roomba {
     if (left < -500)
       left = -500;
 
-    preSpeed = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
+    speed = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
     float ratio = ((float) left  / (float) right);
     drivingRadius = ((ratio+1) * (0.74*radius))/(ratio - 1);
 
 
     if (left == -right) {
-      preSpeed = abs(left);
+      speed = abs(left);
 
       if (left > right) 
         drivingRadius = CLOCKWISE;
       else
         drivingRadius = COUNTER_CLOCKWISE;
     }
+    drive(speed, drivingRadius);
   }
 
-  private void drive(float speed, float r) {
+  public void drive(float speed, float r) {
 
     float a = 0;  
     float y1 = 0;
     float x1 = 0;
+    speed = speed/55.9;
 
     if (r != CLOCKWISE && r != COUNTER_CLOCKWISE) {
       if (r == 0) {
@@ -126,13 +130,6 @@ class Roomba {
 
     setLinearVelocity(new PVector(x1, y1));
     setAngularVelocity(a);
-    angle += angularVelocity;
-    x += linearVelocity.x;
-    y += linearVelocity.y;
-    //println("xSpeed: " + linearVelocity.x);
-    //println("ySpeed: " + linearVelocity.y);
-    //println("a: " + a);
-    //println("dRadius: " + drivingRadius);
   }
 
   private int drawRedDot() {
@@ -144,7 +141,6 @@ class Roomba {
 
 
   public void display() {
-
     pushMatrix();
     translate(x, y);
     scale(scaleFactor);
