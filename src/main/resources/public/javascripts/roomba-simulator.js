@@ -1,5 +1,7 @@
 var roombaSim = angular.module('roombaSimApp', [ 'ui.codemirror' ]);
 var templateCode; 
+var turn=0;
+var w;
 function processingLoaded() {
 	var p = Processing.getInstanceById('sketch');
 	if (typeof (simulatorInit) === 'function') {
@@ -18,16 +20,25 @@ function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-async function runSimulation(p){
+async function runSimulation(p,myTurn){
+	//var t = myTurn;
+	
 	try {
 		await p.setup();
-		while(true) {
+		while(turn == myTurn) {
+			
 			await delay(50);
+			if(turn!=myTurn)
+			{
+				return;
+			}
 			await p.roboLoop();
 		}
+		console.log("stopped");
 	} catch (err) {
 		p.println(err);
 	}
+	
 }
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
@@ -121,6 +132,19 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 
 	
 	$scope.saveAndRun = function() {
+	
+		if(typeof(Worker)!=="undefined")
+			{
+			if(typeof(w)==="undefined")
+				{
+				w = new Worker("/javascripts/simulation-run-worker.js");
+				}
+			
+			w.postMessage($scope.code);
+			
+			}
+		
+		turn =turn +1;
 		saveCode();
 		var p = Processing.getInstanceById('sketch');
 		driveDirect = p.driveDirect;
@@ -140,7 +164,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 
 			p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 
-			runSimulation(p);
+			 runSimulation(p,turn);
 		} catch (err) {
 			p.println(err);
 		}
