@@ -89,6 +89,14 @@ void driveDirect(int left, int right) {
   getRoomba().driveDirect(left, right);
 }
 
+void drive(float speed, float r) {
+  getRoomba().drive(speed, r);
+}
+
+void getUltrasonicDistance(int sensorPosition) {
+  getRoomba().getUltrasonicDistance(sensorPosition);
+}
+
 void setMaze() {
   int offset = PIPE_LENGTH / 2;
   for (int i = 0; i < GRID_WIDTH+1; i++) {

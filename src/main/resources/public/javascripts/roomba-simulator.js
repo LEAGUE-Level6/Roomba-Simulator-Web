@@ -148,14 +148,31 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		saveCode();
 		var p = Processing.getInstanceById('sketch');
 		driveDirect = p.driveDirect;
+		drive = p.drive;
+		getUltrasonicDistance = p.getUltrasonicDistance;
 		try {
 			var jsCode = Processing.
-				compile($scope.code).sourceCode.
-				replace(/\$p\.delay/g, 'await delay').
-				replace('function setup', 'async function setup').
-				replace('function roboLoop', 'async function roboLoop');
+				compile($scope.code).sourceCode;
+				console.log(jsCode);
+			var funNames = [];
+			var re = /function +([^(]+)/g;
+			var m;
+			do{
+				m = re.exec(jsCode);
+				if(m){
+					funNames.push(m[1]);
+				}
+			}while (m);
+			jsCode = jsCode.
+				replace(/\$p\.delay/g, 'await delay');
+			for(var i = 0; i < funNames.length; ++i){
+				var f = funNames[i];
+				console.log(f);
+				jsCode = jsCode.
+					replace(new RegExp(f + '\\(', 'g'), 'await '+ f +'(').
+					replace('function await ' + f, 'async function ' + f);
+			}
 			console.log(jsCode);
-
 			var applyUserCode = eval(jsCode);
 
 			applyUserCode(p);
