@@ -47,8 +47,9 @@
 }
 
 .CodeMirror{
-	height: 785px !important;
+	height: 735px !important;
 	viewportMargin: Infinity;
 	position: relative;
+	z-index: 0;
 }
 
