@@ -1,5 +1,6 @@
 onmessage = function(e)
 {
-	var applyUserCode = eval(e);
+	var jsCode = e.data;
+	console.log(jsCode);
 
 }

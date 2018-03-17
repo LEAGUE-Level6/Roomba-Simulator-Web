@@ -133,16 +133,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	
 	$scope.saveAndRun = function() {
 	
-		if(typeof(Worker)!=="undefined")
-			{
-			if(typeof(w)==="undefined")
-				{
-				w = new Worker("/javascripts/simulation-run-worker.js");
-				}
-			
-			w.postMessage($scope.code);
-			
-			}
+		
 		
 		turn =turn +1;
 		saveCode();
@@ -171,6 +162,16 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 				jsCode = jsCode.
 					replace(new RegExp(f + '\\(', 'g'), 'await '+ f +'(').
 					replace('function await ' + f, 'async function ' + f);
+			}
+			if(typeof(Worker)!=="undefined")
+			{
+			if(typeof(w)==="undefined")
+				{
+				w = new Worker("/javascripts/simulation-run-worker.js");
+				}
+			
+			w.postMessage(jsCode);
+			
 			}
 			console.log(jsCode);
 			var applyUserCode = eval(jsCode);
