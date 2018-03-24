@@ -1,6 +1,15 @@
+var jsCode;
 onmessage = function(e)
 {
-	var jsCode = e.data;
-	console.log(jsCode);
-
+	 jsCode = e.data;
+	//console.log(jsCode);
+	printCode();
+	
 }
+
+function printCode()
+{
+var userCode = eval(jsCode);
+console.log(userCode);
+}
+
