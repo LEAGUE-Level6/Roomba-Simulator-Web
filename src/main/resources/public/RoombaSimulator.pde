@@ -16,11 +16,7 @@ private double end = 0;
 
 void setup() {
   size(412, 823);
-
   processingLoaded();
-  //driveDirect(.1,.1);
-  //roomba = new Roomba("r1", 300, 300, PIPE_LENGTH * 0.2407, 0);
-  //endZone = new EndZone(510, 100, 10);
 }
 
 void resetTimer() {
@@ -35,7 +31,6 @@ void draw() {
   drawMaze();
   roomba.display();
   endZone.display();
-  //drawCircle(100,100,frameCount);
   roomba.update();
   if (!roomba.bump) {
     end = millis();
