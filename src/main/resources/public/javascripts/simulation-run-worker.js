@@ -1,7 +1,7 @@
 var jsCode;
 onmessage = function(e)
 {
-	 jsCode = e.data;
+	jsCode = e.data;
 	//console.log(jsCode);
 	printCode();
 	
@@ -9,7 +9,7 @@ onmessage = function(e)
 
 function printCode()
 {
-var userCode = eval(jsCode);
-console.log(userCode);
+	var userCode = eval(jsCode);
+	console.log(userCode);
 }
 
