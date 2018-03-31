@@ -20,26 +20,9 @@ function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-async function runSimulation(p,myTurn){
-	//var t = myTurn;
+
 	
-	try {
-		await p.setup();
-		while(turn == myTurn) {
-			
-			await delay(50);
-			if(turn!=myTurn)
-			{
-				return;
-			}
-			await p.roboLoop();
-		}
-		console.log("stopped");
-	} catch (err) {
-		p.println(err);
-	}
-	
-}
+
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
@@ -163,13 +146,16 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 					replace(new RegExp(f + '\\(', 'g'), 'await '+ f +'(').
 					replace('function await ' + f, 'async function ' + f);
 			}
+			
 			if(typeof(Worker)!=="undefined")
 			{
-			if(typeof(w)==="undefined")
+				
+			if(typeof(w)!=="undefined")
 				{
-				w = new Worker("/javascripts/simulation-run-worker.js");
+				
+				w.terminate();
 				}
-			
+			w = new Worker("/javascripts/simulation-run-worker.js");
 			w.postMessage(jsCode);
 			
 			}
