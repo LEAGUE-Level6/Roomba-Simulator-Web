@@ -15,15 +15,6 @@ function onProcessingLoad(simulatorInitialization) {
 	else
 		simulatorInit = simulatorInitialization;
 }
-
-function delay(millis){
-	return new Promise(resolve => setTimeout(resolve, millis));
-}
-
-
-	
-
-
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
 	var orientation;
@@ -181,9 +172,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 			p.resetTimer();
 
 			p.startingPointLocations(startCoord.x, startCoord.y, orientation);
-
-			 runSimulation(p,turn);
-		} catch (err) {
+		} 
+		catch (err) {
 			p.println(err);
 		}
 	};
