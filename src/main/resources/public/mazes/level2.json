@@ -1,7 +1,7 @@
 {
 "start":{
 	"coord":{"x":100, "y":685},
-	"orientation":0
+	"orientation":1.57079632679
 },
 "finishCoord":{
 	"x":310, "y":136
