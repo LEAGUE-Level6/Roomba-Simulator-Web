@@ -147,18 +147,27 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 					replace('function await ' + f, 'async function ' + f);
 			}
 			
-			if(typeof(Worker)!=="undefined")
-			{
+			if(typeof(Worker)!=="undefined") {
 				
-			if(typeof(w)!=="undefined")
-				{
-				
-				w.terminate();
+				if(typeof(w)!=="undefined") {
+					
+					w.terminate();
 				}
-			w = new Worker("/javascripts/simulation-run-worker.js");
-			w.postMessage(jsCode);
-			
+				w = new Worker("/javascripts/simulation-run-worker.js");
+				w.postMessage(jsCode);
+				
+				w.onmessage = function(e) {
+					switch(e.data.method){
+						case "driveDirect":
+							p.driveDirect(e.data.left, e.data.right);
+							break;
+						default: 
+							console.log("Unknown Method: " + e.data.method);
+					}
+				}
 			}
+			
+			
 			console.log(jsCode);
 			var applyUserCode = eval(jsCode);
 
@@ -173,4 +182,6 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 			p.println(err);
 		}
 	};
+	
 });
+

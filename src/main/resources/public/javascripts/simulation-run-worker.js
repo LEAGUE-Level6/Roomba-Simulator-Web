@@ -14,11 +14,12 @@ function printCode()
 var userCode = eval(jsCode);
 
 console.log(userCode);
-setTimeout(printCode, 5000);
+//setTimeout(printCode, 5000);
 
 }
-function driveDirect()
+function driveDirect(left, right)
 {
+	postMessage({"method": "driveDirect", "left": left, "right": right});
 	console.log("driveDirect");
 }
 async function runSimulation(p){
