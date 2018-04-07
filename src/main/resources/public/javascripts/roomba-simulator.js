@@ -123,6 +123,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		var p = Processing.getInstanceById('sketch');
 		driveDirect = p.driveDirect;
 		drive = p.drive;
+		
+		
 		getUltrasonicDistance = p.getUltrasonicDistance;
 		try {
 			var jsCode = Processing.
@@ -160,6 +162,9 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 					switch(e.data.method){
 						case "driveDirect":
 							p.driveDirect(e.data.left, e.data.right);
+							break;
+						case "println":
+							p.println(e.data.message);
 							break;
 						default: 
 							console.log("Unknown Method: " + e.data.method);

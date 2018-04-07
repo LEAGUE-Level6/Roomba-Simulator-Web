@@ -22,6 +22,15 @@ function driveDirect(left, right)
 	postMessage({"method": "driveDirect", "left": left, "right": right});
 	console.log("driveDirect");
 }
+function println(message)
+{
+	console.log("cool beans");
+postMessage({"method":"println", "message":message});
+}
+function delay(millis){
+	return new Promise(resolve => setTimeout(resolve, millis));
+}
+
 async function runSimulation(p){
 	//var t = myTurn;
 	
@@ -42,8 +51,14 @@ function runCode()
 {
 	var p = {};
 	var applyUserCode = eval(jsCode);	
+	p.println = println;
+	//println = println.bind(p);
+	
+
+	
 	applyUserCode(p);
 	runSimulation(p)
+	
 
 }
 
