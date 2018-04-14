@@ -30,6 +30,11 @@ postMessage({"method":"println", "message":message});
 function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
+function drive(speed,r)
+{
+	postMessage({"method":"drive", "speed":speed, "r":r});
+}
+
 
 async function runSimulation(p){
 	//var t = myTurn;

@@ -157,6 +157,9 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 						case "println":
 							p.println(e.data.message);
 							break;
+						case "drive":
+							p.drive(e.data.speed, e.data.r)
+							break;
 						default: 
 							console.log("Unknown Method: " + e.data.method);
 					}
