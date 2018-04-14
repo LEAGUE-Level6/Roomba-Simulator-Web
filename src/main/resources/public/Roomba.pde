@@ -10,9 +10,7 @@ class Roomba {
   private String id;
   private float radius = 40;
   private boolean bump;
-  private float angularVelocity;
-  private PVector linearVelocity = new PVector(0, 0);
-  private float speed;
+  private float drivingVelocity;
   private float drivingRadius;
   private float angle = 0;
   final float CLOCKWISE= 0xFFFF;
@@ -32,9 +30,7 @@ class Roomba {
 
   public void update() {
   	if (!bump) {
-  	  angle += angularVelocity;
-      x += linearVelocity.x;
-      y += linearVelocity.y;
+      driveInternal(drivingVelocity, drivingRadius);
     }
     
     checkCollision();
@@ -59,17 +55,6 @@ class Roomba {
   public float getRadius() {
     return radius;
   }
-  public float getXVPMS(){
-	return linearVelocity.x * (60/1000);
-  }
-  
-  public float getYVPMS(){
-	return linearVelocity.y * (60/1000);
-  }
-  
-  public float getAngularVPMS(){
-	return angularVelocity * (60/1000);
-  }
   
   public float getX() {
     return x;
@@ -88,49 +73,59 @@ class Roomba {
     if (left < -500)
       left = -500;
 
-    speed = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
+    drivingVelocity = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
     float ratio = ((float) left  / (float) right);
     drivingRadius = ((ratio+1) * (0.74*radius))/(ratio - 1);
 
 
     if (left == -right) {
-      speed = abs(left);
+      drivingVelocity = abs(left);
 
       if (left > right) 
         drivingRadius = CLOCKWISE;
       else
         drivingRadius = COUNTER_CLOCKWISE;
     }
-    drive(speed, drivingRadius);
+    
+    setDrivingVelocity(drivingVelocity);
+	setDrivingRadius(drivingRadius);
   }
 
-  public void drive(float speed, float r) {
+  public void drive(float drivingVelocity, float drivingRadius) {
+	setDrivingVelocity(drivingVelocity);
+	setDrivingRadius(drivingRadius);
+  }
+  
+  private void driveInternal(float drivingVelocity, float drivingRadius) {
+    float aV = 0;  
+    float yV = 0;
+    float xV = 0;
+    println("s: " + drivingVelocity + " r: " + drivingRadius);
+    drivingVelocity = drivingVelocity/55.9;
+    
 
-    float a = 0;  
-    float y1 = 0;
-    float x1 = 0;
-    speed = speed/55.9;
-
-    if (r != CLOCKWISE && r != COUNTER_CLOCKWISE) {
-      if (r == 0) {
-        a = 0;
+    if (drivingRadius != CLOCKWISE && drivingRadius != COUNTER_CLOCKWISE) {
+      if (drivingRadius == 0) {
+        aV = 0;
       } else {
-        a = (speed/r) * 9.56;
+        aV = (drivingVelocity/drivingRadius) * 9.56;
       } 
-      //println(r + " " +a + " " +speed);
-      y1 = (float) (Math.cos(angle) * speed);
-      x1 = (float) (Math.sin(angle) * speed);
+      
+      yV = (float) (Math.cos(angle) * drivingVelocity);
+      xV = (float) (Math.sin(angle) * drivingVelocity);
     }
 
-    if (r == CLOCKWISE)
-      a = speed/50;
-    else if (r == COUNTER_CLOCKWISE)
-      a = -speed/50;
-
-
-    setLinearVelocity(new PVector(x1, y1));
-    setAngularVelocity(a);
+    if (drivingRadius == CLOCKWISE)
+      aV = drivingVelocity/50;
+    else if (drivingRadius == COUNTER_CLOCKWISE)
+      aV = -drivingVelocity/50;     
+     
+  	 angle += aV/6.0;
+     x += xV * 1.6;
+     y += yV * -1.6;
   }
+  
+  
 
   private int drawRedDot() {
     light += incRed;
@@ -251,13 +246,14 @@ class Roomba {
     this.bump = bump;
   }
 
-  public void setAngularVelocity(float newVelocity) {
-    angularVelocity = newVelocity/6.0;
+  public void setDrivingVelocity(float velocity) {
+    drivingVelocity = velocity;
   }
 
-  public void setLinearVelocity(PVector newVelocity) {
-    linearVelocity = new PVector(newVelocity.x * 1.6, newVelocity.y * -1.6);
+  public void setDrivingRadius(float radius) {
+    drivingRadius = drivingRadius;
   }
+  
   public void checkCollision() {
     float wideRadius = 1.1 * radius;
     Entity testEntity = new Entity();
