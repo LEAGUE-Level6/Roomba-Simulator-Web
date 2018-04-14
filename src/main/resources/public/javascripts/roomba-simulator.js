@@ -15,15 +15,6 @@ function onProcessingLoad(simulatorInitialization) {
 	else
 		simulatorInit = simulatorInitialization;
 }
-
-function delay(millis){
-	return new Promise(resolve => setTimeout(resolve, millis));
-}
-
-
-	
-
-
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
 	var orientation;
@@ -123,6 +114,8 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		var p = Processing.getInstanceById('sketch');
 		driveDirect = p.driveDirect;
 		drive = p.drive;
+		
+		
 		getUltrasonicDistance = p.getUltrasonicDistance;
 		try {
 			var jsCode = Processing.
@@ -147,18 +140,30 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 					replace('function await ' + f, 'async function ' + f);
 			}
 			
-			if(typeof(Worker)!=="undefined")
-			{
+			if(typeof(Worker)!=="undefined") {
 				
-			if(typeof(w)!=="undefined")
-				{
-				
-				w.terminate();
+				if(typeof(w)!=="undefined") {
+					
+					w.terminate();
 				}
-			w = new Worker("/javascripts/simulation-run-worker.js");
-			w.postMessage(jsCode);
-			
+				w = new Worker("/javascripts/simulation-run-worker.js");
+				w.postMessage(jsCode);
+				
+				w.onmessage = function(e) {
+					switch(e.data.method){
+						case "driveDirect":
+							p.driveDirect(e.data.left, e.data.right);
+							break;
+						case "println":
+							p.println(e.data.message);
+							break;
+						default: 
+							console.log("Unknown Method: " + e.data.method);
+					}
+				}
 			}
+			
+			
 			console.log(jsCode);
 			var applyUserCode = eval(jsCode);
 
@@ -167,10 +172,11 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 			p.resetTimer();
 
 			p.startingPointLocations(startCoord.x, startCoord.y, orientation);
-
-			 runSimulation(p,turn);
-		} catch (err) {
+		} 
+		catch (err) {
 			p.println(err);
 		}
 	};
+	
 });
+
