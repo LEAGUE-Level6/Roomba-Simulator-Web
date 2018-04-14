@@ -1,5 +1,7 @@
 var roombaSim = angular.module('roombaSimApp', [ 'ui.codemirror' ]);
 var templateCode; 
+var turn=0;
+var w;
 function processingLoaded() {
 	var p = Processing.getInstanceById('sketch');
 	if (typeof (simulatorInit) === 'function') {
@@ -18,17 +20,9 @@ function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-async function runSimulation(p){
-	try {
-		await p.setup();
-		while(true) {
-			await delay(50);
-			await p.roboLoop();
-		}
-	} catch (err) {
-		p.println(err);
-	}
-}
+
+	
+
 
 roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 	var startCoord;
@@ -121,6 +115,10 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 
 	
 	$scope.saveAndRun = function() {
+	
+		
+		
+		turn =turn +1;
 		saveCode();
 		var p = Processing.getInstanceById('sketch');
 		driveDirect = p.driveDirect;
@@ -128,12 +126,40 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		getUltrasonicDistance = p.getUltrasonicDistance;
 		try {
 			var jsCode = Processing.
-				compile($scope.code).sourceCode.
-				replace(/\$p\.delay/g, 'await delay').
-				replace('function setup', 'async function setup').
-				replace('function roboLoop', 'async function roboLoop');
+				compile($scope.code).sourceCode;
+				console.log(jsCode);
+			var funNames = [];
+			var re = /function +([^(]+)/g;
+			var m;
+			do{
+				m = re.exec(jsCode);
+				if(m){
+					funNames.push(m[1]);
+				}
+			}while (m);
+			jsCode = jsCode.
+				replace(/\$p\.delay/g, 'await delay');
+			for(var i = 0; i < funNames.length; ++i){
+				var f = funNames[i];
+				console.log(f);
+				jsCode = jsCode.
+					replace(new RegExp(f + '\\(', 'g'), 'await '+ f +'(').
+					replace('function await ' + f, 'async function ' + f);
+			}
+			
+			if(typeof(Worker)!=="undefined")
+			{
+				
+			if(typeof(w)!=="undefined")
+				{
+				
+				w.terminate();
+				}
+			w = new Worker("/javascripts/simulation-run-worker.js");
+			w.postMessage(jsCode);
+			
+			}
 			console.log(jsCode);
-
 			var applyUserCode = eval(jsCode);
 
 			applyUserCode(p);
@@ -142,7 +168,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 
 			p.startingPointLocations(startCoord.x, startCoord.y, orientation);
 
-			runSimulation(p);
+			 runSimulation(p,turn);
 		} catch (err) {
 			p.println(err);
 		}
