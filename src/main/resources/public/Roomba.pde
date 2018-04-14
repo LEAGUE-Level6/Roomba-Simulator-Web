@@ -122,7 +122,7 @@ class Roomba {
      
   	 angle += aV/6.0;
      x += xV * 1.6;
-     y += xV * 1.6;
+     y += yV * -1.6;
   }
   
   
