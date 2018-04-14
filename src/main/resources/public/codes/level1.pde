@@ -4,7 +4,7 @@
 // turnRight() and moveForward()
 //
 // Call (and use) a method by typing the method name 
-// followed by a "()". See an example on line __.
+// followed by a "()".
 //
 // Try to understand how the methods provided work. 
 //
@@ -19,4 +19,16 @@ void roboLoop() {
 	//Your code goes here!
 	moveForward();
 	turnRight();
+}
+
+//da methods
+void moveForward(){
+	driveDirect(500,500);
+	delay(1000);
+	
+}
+
+void turnRight(){
+	driveDirect(0,500);
+	delay(300);
 }
