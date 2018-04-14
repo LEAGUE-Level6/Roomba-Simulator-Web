@@ -25,7 +25,6 @@ void roboLoop() {
 void moveForward(){
 	driveDirect(500,500);
 	delay(1000);
-	
 }
 
 void turnRight(){
