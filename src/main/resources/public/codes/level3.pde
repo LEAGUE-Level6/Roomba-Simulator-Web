@@ -16,3 +16,14 @@ void roboLoop() {
     println("roboLoop()"); 
     driveDirect(500,500);
 }
+
+//da methods
+void moveForward(){
+	driveDirect(500,500);
+	delay(1000); 
+}
+
+void curveTopLeft(){
+	driveDirect(0,500);
+	delay(300);
+}
