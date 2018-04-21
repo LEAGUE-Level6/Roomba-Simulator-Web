@@ -100,7 +100,7 @@ class Roomba {
     float aV = 0;  
     float yV = 0;
     float xV = 0;
-    println("s: " + drivingVelocity + " r: " + drivingRadius);
+    //println("s: " + drivingVelocity + " r: " + drivingRadius);
     drivingVelocity = drivingVelocity/55.9;
     
 

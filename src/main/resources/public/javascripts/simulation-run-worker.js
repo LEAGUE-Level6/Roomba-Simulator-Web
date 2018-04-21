@@ -1,10 +1,33 @@
 var jsCode;
+var first = true;
+var bumpLeft = undefined;
+var bumpRight = undefined;
 onmessage = function(e)
 {
-	jsCode = e.data;
-	//console.log(jsCode);
-	printCode();
-	runCode();
+	if(first)
+		{
+		jsCode = e.data;
+		printCode();
+		runCode();
+		first = false;
+		}
+	
+	switch(e.data.method){
+	case "isBumpRight":
+		bumpRight = e.data.isBump;
+		console.log(bumpRight);
+		break;
+	
+	case "isBumpLeft":
+		bumpLeft = e.data.isBump;
+		break;
+	default: 
+		console.log("Unknown Method: " + e.data.method);
+	}
+	// console.log(jsCode);
+	
+	
+	
 	
 }
 
@@ -14,30 +37,62 @@ function printCode()
 var userCode = eval(jsCode);
 
 console.log(userCode);
-//setTimeout(printCode, 5000);
+// setTimeout(printCode, 5000);
 
 }
+
 function driveDirect(left, right)
 {
 	postMessage({"method": "driveDirect", "left": left, "right": right});
-	console.log("driveDirect");
 }
+
 function println(message)
 {
-	console.log("cool beans");
 postMessage({"method":"println", "message":message});
 }
+
 function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
-function drive(speed,r)
+
+ async function isBumpRight()
 {
-	postMessage({"method":"drive", "speed":speed, "r":r});
+  postMessage({"method":"isBumpRight"})	
+  
+if(checkReadyBump(bumpRight))
+{
+ var bump = bumpRight;
+ bumpRight = undefined;
+ console.log(bump);
+}
+ return bump;
+ 
+}
+ 
+async function isBumpLeft()
+{
+await postMessage({"method":"isBumpLeft"})
+var bump = bumpLeft;
+bumpLeft = false;
+return bump;
+}
+
+ function checkReadyBump(b)
+{
+if(typeof(b)==="undefined")
+	{
+	checkReadyBump(b);
+	}
+else if(typeof(b)!=="undefined")
+	{
+	return true;
+	}
+
 }
 
 
 async function runSimulation(p){
-	//var t = myTurn;
+	// var t = myTurn;
 	
 	try {
 		await p.setup();
@@ -49,7 +104,7 @@ async function runSimulation(p){
 		}
 		console.log("stopped");
 	} catch (err) {
-		//p.println(err);
+		// p.println(err);
 	}
 }
 function runCode()
@@ -57,7 +112,7 @@ function runCode()
 	var p = {};
 	var applyUserCode = eval(jsCode);	
 	p.println = println;
-	//println = println.bind(p);
+	// println = println.bind(p);
 	
 
 	

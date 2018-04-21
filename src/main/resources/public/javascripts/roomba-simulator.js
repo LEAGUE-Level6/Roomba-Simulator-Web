@@ -148,7 +148,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 				}
 				w = new Worker("/javascripts/simulation-run-worker.js");
 				w.postMessage(jsCode);
-				
+				//postMessage({"method": "driveDirect", "left": left, "right": right});
 				w.onmessage = function(e) {
 					switch(e.data.method){
 						case "driveDirect":
@@ -158,7 +158,16 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 							p.println(e.data.message);
 							break;
 						case "drive":
-							p.drive(e.data.speed, e.data.r)
+							p.drive(e.data.speed, e.data.r);
+							break;
+						case "isBumpRight":
+							//var bR = p.isBumpRight();
+							w.postMessage({"method": "isBumpRight", "isBump": false });
+							
+							break;
+						case "isBumpLeft":
+							//var bL = p.isBumpLeft();
+							w.postMessage({"method": "isBumpLeft", "isBump": false });
 							break;
 						default: 
 							console.log("Unknown Method: " + e.data.method);
