@@ -1,5 +1,5 @@
-// To complete this level, you have to turn right. 
-// The turnLeft() method on line __ currently turns right three times.
+// To complete this level, you have to turn left. 
+// The turnLeft() method on line 28 currently turns right three times.
 // Can you improve the turnRight method?
 //
 // Again, write your code in roboLoop(). 
@@ -14,16 +14,15 @@ void roboLoop() {
 	turnRight();
 }
 
-//da methods
+//the methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1000);
-	
+	delay(1250);
 }
 
 void turnRight(){
-	driveDirect(0,500);
-	delay(300);
+	driveDirect(250,-250);
+	delay(2150);
 }
 
 void turnLeft(){
