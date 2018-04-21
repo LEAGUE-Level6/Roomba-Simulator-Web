@@ -17,17 +17,16 @@ void setup() {
 
 void roboLoop() { 
 	//Your code goes here!
-	moveForward();
-	turnRight();
+	
 }
 
-//da methods
+//the methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1000);
+	delay(1250);
 }
 
 void turnRight(){
-	driveDirect(0,500);
-	delay(300);
+	driveDirect(250,-250);
+	delay(2150);
 }
