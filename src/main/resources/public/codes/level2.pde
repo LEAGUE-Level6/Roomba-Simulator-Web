@@ -1,6 +1,9 @@
-// To complete this level, you have to turn left. 
-// The turnLeft() method on line 28 currently turns right three times.
-// Can you improve the turnRight method?
+// To complete this level, you will curveLeft() 
+// and curveRight() instead of turn. 
+// 
+// We will revisit the turning methods in level 3. 
+// 
+// Try to figure out how the curving methods work. 
 //
 // Again, write your code in roboLoop(). 
 
@@ -10,23 +13,21 @@ void setup() {
 
 void roboLoop() { 
 	//Your code goes here!
-	moveForward();
-	turnRight();
+	
 }
 
 //the methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1250);
+	delay(1300);
 }
 
-void turnRight(){
-	driveDirect(250,-250);
-	delay(2150);
+void curveLeft(){
+	driveDirect(350,500);
+	delay(1800);
 }
 
-void turnLeft(){
-	turnRight();
-	turnRight();
-	turnRight();
+void curveRight(){
+	driveDirect(500,350);
+	delay(1800);
 }

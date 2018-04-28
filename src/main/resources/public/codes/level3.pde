@@ -1,10 +1,10 @@
 // The maze is slightly harder now. 
-// This level will not provide the turnLeft() and turnRight() methods,
-// but if you wish, you can get them from level 2. 
-// 
-// Instead, the new methods provided in this level are  curveTopLeft(), 
-// curveTopRight(), curveBottomLeft(), and curveBottomRight(). 
 //
+// Use the turnRight() and the turnLeft() methods. Improve the turnLeft()
+// method so that it does not simply turnRight() 3 times.
+// 
+// curveLeft() and curveRight() will not be provided. 
+// 
 // Try to see what each of them do and write a program that solves the maze!
 
 void setup() { 
@@ -20,10 +20,16 @@ void roboLoop() {
 //da methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1000); 
+	delay(1300); 
 }
 
-void curveTopLeft(){
-	driveDirect(0,500);
-	delay(300);
+void turnRight(){
+	driveDirect(250,-250);
+	delay(2150);
+}
+
+void turnLeft(){
+	turnRight();
+	turnRight();
+	turnRight();
 }
