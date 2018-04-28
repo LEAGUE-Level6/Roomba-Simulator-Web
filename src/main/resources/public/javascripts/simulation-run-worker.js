@@ -15,7 +15,7 @@ onmessage = function(e)
 	switch(e.data.method){
 	case "isBumpRight":
 		bumpRight = e.data.isBump;
-		console.log(bumpRight);
+		
 		break;
 	
 	case "isBumpLeft":
@@ -55,41 +55,58 @@ function delay(millis){
 	return new Promise(resolve => setTimeout(resolve, millis));
 }
 
- async function isBumpRight()
+async function isBumpRight()
 {
+	 bumpRight = undefined;
   postMessage({"method":"isBumpRight"})	
   
-if(checkReadyBump(bumpRight))
+if(await checkReadyBump(true))
 {
- var bump = bumpRight;
- bumpRight = undefined;
- console.log(bump);
+ console.log(bumpRight);
 }
- return bump;
+ return bumpRight;
  
 }
  
 async function isBumpLeft()
 {
-await postMessage({"method":"isBumpLeft"})
-var bump = bumpLeft;
-bumpLeft = false;
-return bump;
+	 bumpLeft = undefined;
+	  postMessage({"method":"isBumpLeft"})	
+	  
+	if(await checkReadyBump(false))
+	{
+	 console.log(bumpLeft);
+	}
+	 return bumpLeft;
+	 
 }
 
- function checkReadyBump(b)
-{
-if(typeof(b)==="undefined")
-	{
-	checkReadyBump(b);
+ async function checkReadyBump(b)
+{	
+	 var bump;
+	await delay(10);
+	if(b  = true){
+	 bump = bumpRight;
 	}
-else if(typeof(b)!=="undefined")
+	else if(b == false)
+		{
+		bump = bumpLeft;
+		}
+		
+	
+if(typeof(bump)==="undefined")
+	{
+	//delay(100);
+	checkReadyBump(b);
+	
+	}
+else if(typeof(bump)!=="undefined")
 	{
 	return true;
 	}
 
 }
-
+ 
 
 async function runSimulation(p){
 	// var t = myTurn;

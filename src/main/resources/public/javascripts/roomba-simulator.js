@@ -131,7 +131,9 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 				}
 			}while (m);
 			jsCode = jsCode.
-				replace(/\$p\.delay/g, 'await delay');
+				replace(/\$p\.delay/g, 'await delay').
+				replace(/isBumpRight/g, 'await isBumpRight').
+				replace(/isBumpLeft/g, 'await isBumpLeft');
 			for(var i = 0; i < funNames.length; ++i){
 				var f = funNames[i];
 				console.log(f);
@@ -162,7 +164,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 							break;
 						case "isBumpRight":
 							//var bR = p.isBumpRight();
-							w.postMessage({"method": "isBumpRight", "isBump": false });
+							w.postMessage({"method": "isBumpRight", "isBump": true });
 							
 							break;
 						case "isBumpLeft":
