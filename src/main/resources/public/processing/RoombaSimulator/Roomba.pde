@@ -262,10 +262,7 @@ class Roomba {
       if(testEntity.getCollided().getId().equals("endzone")) {
         fill(#006600)
         text("Congratulations, maze completed!", 100, 100);
-      } else {
-      	fill(#BB0000)
-        text("Sorry, you lose. Study harder and try again. ", 100,100)
-      }
+      } 
     } else {
       setBump(false);
     }
