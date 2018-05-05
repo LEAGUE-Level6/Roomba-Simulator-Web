@@ -32,9 +32,9 @@ void draw() {
   roomba.display();
   endZone.display();
   roomba.update();
-  if (!roomba.bump) {
+  //if (!roomba.bump) {
     end = millis();
-  }
+ // }
 
   
   if (start != 0) {
