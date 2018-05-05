@@ -23,7 +23,7 @@ void roboLoop() {
 //the methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1250);
+	delay(1300);
 }
 
 void turnRight(){
