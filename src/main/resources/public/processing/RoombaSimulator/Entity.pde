@@ -10,6 +10,7 @@ class Entity {
   private float w;
   private float h;
   private float r;
+  private boolean isHorizontal;
   
 
 
@@ -107,5 +108,14 @@ class Entity {
   public void deleteBody() {
     entities.remove(this);
   }
+    public void setWallPos()
+  {
+    isHorizontal=(width>height);
+    
+}
+public boolean getWallPos()
+{
+  return isHorizontal;
+}
   
 }

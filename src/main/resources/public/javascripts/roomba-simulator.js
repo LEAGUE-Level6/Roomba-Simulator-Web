@@ -116,6 +116,7 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 		drive = p.drive;
 		
 		
+		
 		getUltrasonicDistance = p.getUltrasonicDistance;
 		try {
 			var jsCode = Processing.
@@ -163,13 +164,13 @@ roombaSim.controller('roombaSimController', function($scope, $http, $window) {
 							p.drive(e.data.speed, e.data.r);
 							break;
 						case "isBumpRight":
-							//var bR = p.isBumpRight();
-							w.postMessage({"method": "isBumpRight", "isBump": true });
+							var bR = p.isBumpRight();
+							w.postMessage({"method": "isBumpRight", "isBump": bR });
 							
 							break;
 						case "isBumpLeft":
-							//var bL = p.isBumpLeft();
-							w.postMessage({"method": "isBumpLeft", "isBump": false });
+							var bL = p.isBumpLeft();
+							w.postMessage({"method": "isBumpLeft", "isBump": bL });
 							break;
 						default: 
 							console.log("Unknown Method: " + e.data.method);

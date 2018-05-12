@@ -1,3 +1,4 @@
+
 class Roomba {
   private float definition; 
   private float scaleFactor;
@@ -13,6 +14,7 @@ class Roomba {
   private float drivingVelocity;
   private float drivingRadius;
   private float angle = 0;
+  private float testAngle;
   final float CLOCKWISE= 0xFFFF;
   final float COUNTER_CLOCKWISE = 0x7FFF;
 
@@ -22,7 +24,7 @@ class Roomba {
     this.y = y;
     this.radius = radius;
     this.angle = angle;
-
+    
     definition = 200/radius + 1;
     drawingRadius = definition * radius;
     scaleFactor = 1/definition;
@@ -32,7 +34,7 @@ class Roomba {
   	if (!bump) {
       driveInternal(drivingVelocity, drivingRadius);
     }
-    
+    testAngle = angle;
     checkCollision();
 
     while (angle > 2*PI)
@@ -238,10 +240,30 @@ class Roomba {
   }
 
 
-  public boolean isBump() {
-    return bump;
+  public boolean isRightBump() {
+    if(testAngle>=360)
+    {
+      testAngle = testAngle - 360;
+    }
+   if(testAngle<PI/2 || testAngle > 6.108)
+   {
+     return true;
+   }
+    return false;
+    
   }
-
+  public boolean isLeftBump(){
+       if(testAngle>=360)
+    {
+      testAngle = testAngle - 360;
+    }
+      if(testAngle<(3*PI)/2 || testAngle > 0.17)
+   {
+     return true;
+   }
+    return false;
+    
+  }
   public void setBump(boolean bump) {
     this.bump = bump;
   }
@@ -259,10 +281,34 @@ class Roomba {
     Entity testEntity = new Entity();
     if (testEntity.checkCollision(x + wideRadius, y) != null || testEntity.checkCollision(x - wideRadius, y) != null  || testEntity.checkCollision(x, y + wideRadius)  != null || testEntity.checkCollision(x, y - wideRadius)  != null /* || x + wideRadius >= width || x - wideRadius <= 0  || y + wideRadius >= height */ || y - wideRadius <= 0 ) {
       setBump(true);
-      if(testEntity.getCollided().getId().equals("endzone")) {
-        fill(#006600)
+      if(testEntity.getCollided().getWallPos())
+      {
+       if(testEntity.getY()>testEntity.getCollided().getY())
+       {
+        //testAngle = angle;
+         testAngle+=180;
+       }
+       
+      }
+      else if(!testEntity.getCollided().getWallPos())
+      {
+        if(testEntity.getX()>testEntity.getCollided().getX())
+       {
+         //testAngle = angle;
+         
+         testAngle+=270;
+       }
+        else if(testEntity.getX()<testEntity.getCollided().getX())
+       {
+        // testAngle = angle;
+         testAngle+=90;
+       }
+      }
+      else if(testEntity.getCollided().getId().equals("endzone")) {
+        fill(#006600);
         text("Congratulations, maze completed!", 100, 100);
       } 
+      
     } else {
       setBump(false);
     }
