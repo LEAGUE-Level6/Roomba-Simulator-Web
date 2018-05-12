@@ -49,9 +49,9 @@ class Roomba {
     rectMode(CORNER);
     rect(15, 5, 360, 40);
     fill(255, 0, 0, 100);
-    text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
-    text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
-    text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20);
+    // text("Left Sensor: " + (int) getUltrasonicDistance(LEFT), 20, 20);
+    // text("Center Sensor: " + (int) getUltrasonicDistance(CENTER), 145, 20);
+    // text("Right Sensor: " + (int) getUltrasonicDistance(RIGHT), 275, 20);
   }
 
   public float getRadius() {
@@ -190,7 +190,9 @@ class Roomba {
     float beamX = x;
     float beamY = y;
     float angleCalc = angle;
-
+    float xSpeed = 0;
+    float ySpeed = 0;
+    
     if (sensorPosition == CENTER) {
       xSpeed = cos(angleCalc - PI/2);
       ySpeed = sin(angleCalc - PI/2);
