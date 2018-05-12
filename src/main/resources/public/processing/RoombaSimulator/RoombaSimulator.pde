@@ -38,7 +38,7 @@ void draw() {
 
   
   if (start != 0) {
-  	text("Time: " + (int)((end - start)/60000) + ":" + nf(((end - start)/1000.0)%60, 2, 2), 20, 40);
+  	text("Time: " + (int)((end - start)/60000) + ":" + nf(((float)(end - start)/1000.0)%60, 2, 2), 20, 40);
   } else {
   	text("Time: 0:00.00", 20, 40);
   }
