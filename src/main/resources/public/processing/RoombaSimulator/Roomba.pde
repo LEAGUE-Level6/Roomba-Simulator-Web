@@ -34,14 +34,16 @@ class Roomba {
   	if (!bump) {
       driveInternal(drivingVelocity, drivingRadius);
     }
-    testAngle = angle;
-    checkCollision();
+    
 
     while (angle > 2*PI)
       angle-=2*PI;
 
     while (angle < -2*PI)
       angle+=2*PI;
+      
+      testAngle = angle;
+    checkCollision();
 
     stroke(0);
     strokeWeight(1.5);
@@ -243,11 +245,14 @@ class Roomba {
 
 
   public boolean isRightBump() {
-    if(testAngle>=360)
+    println("angle: " + degrees(angle));
+   
+    if(testAngle>=2*PI)
     {
-      testAngle = testAngle - 360;
+      testAngle -= 2*PI;
     }
-   if(testAngle<PI/2 || testAngle > 6.108)
+     println("testAngle: " +degrees(testAngle));
+   if((testAngle<PI/2 || testAngle > 6.108) && bump)
    {
      return true;
    }
@@ -255,11 +260,15 @@ class Roomba {
     
   }
   public boolean isLeftBump(){
-       if(testAngle>=360)
+    println("angle: " + degrees(angle));
+    
+       if(testAngle>=2*PI)
     {
-      testAngle = testAngle - 360;
+      testAngle -= 2*PI;
     }
-      if(testAngle<(3*PI)/2 || testAngle > 0.17)
+    println("testAngle: " +degrees(testAngle) + " " + (testAngle > (3/2)*PI));
+    
+      if((testAngle > (3/2)*PI || testAngle < 0.17) && bump)
    {
      return true;
    }
@@ -267,6 +276,7 @@ class Roomba {
     
   }
   public void setBump(boolean bump) {
+    
     this.bump = bump;
   }
 
@@ -275,35 +285,40 @@ class Roomba {
   }
 
   public void setDrivingRadius(float radius) {
-    drivingRadius = drivingRadius;
+    drivingRadius = radius;
   }
   
   public void checkCollision() {
+    
     float wideRadius = 1.1 * radius;
     Entity testEntity = new Entity();
     if (testEntity.checkCollision(x + wideRadius, y) != null || testEntity.checkCollision(x - wideRadius, y) != null  || testEntity.checkCollision(x, y + wideRadius)  != null || testEntity.checkCollision(x, y - wideRadius)  != null /* || x + wideRadius >= width || x - wideRadius <= 0  || y + wideRadius >= height */ || y - wideRadius <= 0 ) {
       setBump(true);
       if(testEntity.getCollided().getWallPos())
       {
-       if(testEntity.getY()>testEntity.getCollided().getY())
+       if(y<testEntity.getCollided().getY())
        {
         //testAngle = angle;
-         testAngle+=180;
+         testAngle = angle + PI;
+         //println("wall below");
        }
+       println("wall above");
        
       }
       else if(!testEntity.getCollided().getWallPos())
       {
-        if(testEntity.getX()>testEntity.getCollided().getX())
+        if(x>testEntity.getCollided().getX())
        {
          //testAngle = angle;
-         
-         testAngle+=270;
+         println("wall left");
+
+         testAngle = angle + PI/2;
        }
-        else if(testEntity.getX()<testEntity.getCollided().getX())
+        else if(x<testEntity.getCollided().getX())
        {
         // testAngle = angle;
-         testAngle+=90;
+         //println("wall right");
+         testAngle = angle + (3/2) * PI;
        }
       }
       else if(testEntity.getCollided().getId().equals("endzone")) {

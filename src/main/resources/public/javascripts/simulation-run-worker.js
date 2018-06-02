@@ -64,6 +64,10 @@ if(await checkReadyBump(true))
 {
  console.log(bumpRight);
 }
+  if(typeof(bumpRight)=="undefined")
+  {
+	  return false;
+	  }
  return bumpRight;
  
 }
@@ -77,6 +81,11 @@ async function isBumpLeft()
 	{
 	 console.log(bumpLeft);
 	}
+	  
+	  if(typeof(bumpLeft)=="undefined")
+		  {
+		  return false;
+		  }
 	 return bumpLeft;
 	 
 }
