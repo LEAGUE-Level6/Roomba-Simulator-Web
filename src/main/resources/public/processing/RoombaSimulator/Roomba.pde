@@ -72,8 +72,8 @@ class Roomba {
       left = -500;
     if (right > 500)
       right = 500;
-    if (left < -500)
-      left = -500;
+    if (right < -500)
+      right = -500;
 
     drivingVelocity = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
     float ratio = ((float) left  / (float) right);
