@@ -21,7 +21,6 @@ void processingLoaded(){
 void setup() {
   size(412, 823);
   processingLoaded();
-  setupRandomLevel();
 }
 
 void resetTimer() {
