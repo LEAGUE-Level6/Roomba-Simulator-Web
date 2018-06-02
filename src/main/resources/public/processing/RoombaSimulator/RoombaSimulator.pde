@@ -14,10 +14,6 @@ public float inc;
 private double start = 0;
 private double end = 0;
 
-void processingLoaded(){
-  // do nothing
-}
-
 void setup() {
   size(412, 823);
   processingLoaded();
