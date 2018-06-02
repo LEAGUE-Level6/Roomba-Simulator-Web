@@ -1,5 +1,6 @@
 class Wall {
   private float x, y, width, height;
+  private boolean wallPos;
   private Entity body;
 
   public Wall (float x_, float y_, float w_, float h_) {
@@ -19,4 +20,5 @@ class Wall {
   public Entity getBody() {
     return body;
   }
+
 }

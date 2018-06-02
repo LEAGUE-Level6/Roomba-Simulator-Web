@@ -88,6 +88,14 @@ Roomba getRoomba() {
 void driveDirect(int left, int right) {
   getRoomba().driveDirect(left, right);
 }
+boolean isBumpRight()
+{
+ return getRoomba().isRightBump(); 
+}
+boolean isBumpLeft()
+{
+ return getRoomba().isLeftBump(); 
+}
 
 void drive(float speed, float r) {
   getRoomba().drive(speed, r);
