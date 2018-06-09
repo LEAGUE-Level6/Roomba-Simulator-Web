@@ -11,6 +11,7 @@ class Roomba {
   private String id;
   private float radius = 40;
   private boolean bump;
+  private float ratio;
   private float drivingVelocity;
   private float drivingRadius;
   private float angle = 0;
@@ -77,10 +78,17 @@ class Roomba {
     if (left < -500)
       left = -500;
 
+  
     drivingVelocity = ((float) left  + (float) right) / ((width + height)/2 / (max(GRID_WIDTH, GRID_HEIGHT) * 2.0f));
-    float ratio = ((float) left  / (float) right);
+   
+   
+     ratio = ((float) left  / (float) right);
+     if(right==0)
+    {
+     ratio = 50000;
+    }
     drivingRadius = ((ratio+1) * (0.74*radius))/(ratio - 1);
-
+    
 
     if (left == -right) {
       drivingVelocity = abs(left);
@@ -288,24 +296,25 @@ class Roomba {
     drivingRadius = radius;
   }
   
+  
   public void checkCollision() {
     
     float wideRadius = 1.1 * radius;
     Entity testEntity = new Entity();
     if (testEntity.checkCollision(x + wideRadius, y) != null || testEntity.checkCollision(x - wideRadius, y) != null  || testEntity.checkCollision(x, y + wideRadius)  != null || testEntity.checkCollision(x, y - wideRadius)  != null /* || x + wideRadius >= width || x - wideRadius <= 0  || y + wideRadius >= height */ || y - wideRadius <= 0 ) {
       setBump(true);
-      if(testEntity.getCollided().getWallPos())
+      if(testEntity.getCollided().isHor())
       {
        if(y<testEntity.getCollided().getY())
        {
         //testAngle = angle;
          testAngle = angle + PI;
-         //println("wall below");
+         println("wall below");
        }
-       println("wall above");
+     //  println("wall above");
        
       }
-      else if(!testEntity.getCollided().getWallPos())
+      else if(!testEntity.getCollided().isHor())
       {
         if(x>testEntity.getCollided().getX())
        {
@@ -317,7 +326,7 @@ class Roomba {
         else if(x<testEntity.getCollided().getX())
        {
         // testAngle = angle;
-         //println("wall right");
+         println("wall right");
          testAngle = angle + (3/2) * PI;
        }
       }

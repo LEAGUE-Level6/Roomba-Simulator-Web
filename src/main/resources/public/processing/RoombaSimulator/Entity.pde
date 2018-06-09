@@ -38,6 +38,8 @@ class Entity {
     this.y = y; 
     this.w = w;
     this.h = h;
+    setWallPos();
+
     entities.add(this);
   }
   public Entity(String id, int shape, float x, float y, float r) {
@@ -110,10 +112,18 @@ class Entity {
   }
     public void setWallPos()
   {
-    isHorizontal=(width>height);
+    isHorizontal=(getWidth()>getHeight());
     
-}
-public boolean getWallPos()
+  }
+  public ArrayList<Entity> getNearbyEntities()
+ {
+   // seperate walls by inter sections 
+   // put the center of the roomba to the nearest intersection point
+   //add those walls to the nearby walls/entities
+   // 4 walls added
+   
+ }
+public boolean isHor()
 {
   return isHorizontal;
 }
