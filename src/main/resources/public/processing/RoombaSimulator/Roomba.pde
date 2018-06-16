@@ -252,7 +252,7 @@ class Roomba {
   }
 
 
-  public boolean isRightBump() {
+  public boolean isLeftBump() {
     println("angle: " + degrees(angle));
    
     if(testAngle>=2*PI)
@@ -267,7 +267,7 @@ class Roomba {
     return false;
     
   }
-  public boolean isLeftBump(){
+  public boolean isRightBump(){
     println("angle: " + degrees(angle));
     
        if(testAngle>=2*PI)
@@ -309,7 +309,7 @@ class Roomba {
        {
         //testAngle = angle;
          testAngle = angle + PI;
-         println("wall below");
+       //  println("wall below");
        }
      //  println("wall above");
        
@@ -319,14 +319,14 @@ class Roomba {
         if(x>testEntity.getCollided().getX())
        {
          //testAngle = angle;
-         println("wall left");
+       //  println("wall left");
 
          testAngle = angle + PI/2;
        }
         else if(x<testEntity.getCollided().getX())
        {
         // testAngle = angle;
-         println("wall right");
+        // println("wall right");
          testAngle = angle + (3/2) * PI;
        }
       }
