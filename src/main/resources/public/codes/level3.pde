@@ -14,18 +14,17 @@ void setup() {
 void roboLoop() { 
 	//Call your method here
     println("roboLoop()"); 
-    driveDirect(500,500);
 }
 
 //da methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1300); 
+	delay(1000); 
 }
 
 void turnRight(){
 	driveDirect(250,-250);
-	delay(2150);
+	delay(1650);
 }
 
 void turnLeft(){

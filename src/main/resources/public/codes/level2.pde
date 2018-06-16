@@ -13,13 +13,12 @@ void setup() {
 
 void roboLoop() { 
 	//Your code goes here!
-	
 }
 
 //the methods
 void moveForward(){
 	driveDirect(500,500);
-	delay(1300);
+	delay(1000);
 }
 
 void curveLeft(){
