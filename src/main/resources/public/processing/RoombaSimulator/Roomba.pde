@@ -69,6 +69,8 @@ class Roomba {
   }
   
   public void driveDirect(int left, int right) {
+         bump=false;
+
     if (left > 500)
       left = 500;
     if (left < -500)
@@ -104,11 +106,14 @@ class Roomba {
   }
 
   public void drive(float drivingVelocity, float drivingRadius) {
+         bump=false;
+
 	setDrivingVelocity(drivingVelocity);
 	setDrivingRadius(drivingRadius);
   }
   
   private void driveInternal(float drivingVelocity, float drivingRadius) {
+
     float aV = 0;  
     float yV = 0;
     float xV = 0;
