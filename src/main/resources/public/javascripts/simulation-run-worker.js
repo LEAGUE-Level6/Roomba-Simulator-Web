@@ -94,10 +94,10 @@ async function isBumpLeft()
 {	
 	 var bump;
 	await delay(10);
-	if(b  = true){
+	if(b){
 	 bump = bumpRight;
 	}
-	else if(b == false)
+	else 
 		{
 		bump = bumpLeft;
 		}
