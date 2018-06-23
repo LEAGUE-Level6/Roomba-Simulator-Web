@@ -253,13 +253,13 @@ class Roomba {
 
 
   public boolean isLeftBump() {
-    println("angle: " + degrees(angle));
+  //  println("angle: " + degrees(angle));
    
     if(testAngle>=2*PI)
     {
       testAngle -= 2*PI;
     }
-     println("testAngle: " +degrees(testAngle));
+   //  println("testAngle: " +degrees(testAngle));
    if((testAngle<PI/2 || testAngle > 6.108) && bump)
    {
      return true;
@@ -268,13 +268,13 @@ class Roomba {
     
   }
   public boolean isRightBump(){
-    println("angle: " + degrees(angle));
+  // println("angle: " + degrees(angle));
     
        if(testAngle>=2*PI)
     {
       testAngle -= 2*PI;
     }
-    println("testAngle: " +degrees(testAngle) + " " + (testAngle > (3/2)*PI));
+   // println("testAngle: " +degrees(testAngle) + " " + (testAngle > (3/2)*PI));
     
       if((testAngle > (3/2)*PI || testAngle < 0.17) && bump)
    {
