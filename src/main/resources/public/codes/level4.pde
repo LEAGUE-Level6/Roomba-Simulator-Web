@@ -27,7 +27,8 @@ void moveForwardToEnd(){
 		moveForward();
 		if(isBumpRight() || isBumpLeft()){
 			driveDirect(-500,-500);
-			delay(1000); 
+			delay(200); 
+			driveDirect(0,0);
 			collide = true;
 		}
 	}
