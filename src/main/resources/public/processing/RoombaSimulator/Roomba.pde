@@ -69,6 +69,7 @@ class Roomba {
   }
   
   public void driveDirect(int left, int right) {
+    bump=false;
     if (left > 500)
       left = 500;
     if (left < -500)
