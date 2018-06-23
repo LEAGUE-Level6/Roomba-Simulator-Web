@@ -21,6 +21,18 @@ void moveForward(){
 	delay(1000); 
 }
 
+void moveForwardToEnd(){
+	boolean collide = false;
+	while(!collide){
+		moveForward();
+		if(isBumpRight() || isBumpLeft()){
+			driveDirect(-500,-500);
+			delay(1000); 
+			collide = true;
+		}
+	}
+}
+
 void turnRight(){
 	driveDirect(250,-250);
 	delay(1650);
